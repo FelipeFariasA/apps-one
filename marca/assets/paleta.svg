@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 840 260" width="840" height="260" role="img" aria-label="Apps One - paleta de colores">
+  <defs>
+    <linearGradient id="aoGradPal" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#5B3DF5"/>
+      <stop offset="1" stop-color="#18C8E8"/>
+    </linearGradient>
+  </defs>
+  <rect width="840" height="260" fill="#FFFFFF"/>
+  <g font-family="'Plus Jakarta Sans', 'Segoe UI', Arial, sans-serif">
+    <rect x="0" y="0" width="140" height="150" fill="#5B3DF5"/>
+    <text x="12" y="120" fill="#FFFFFF" font-size="14" font-weight="700">One Violet</text>
+    <text x="12" y="138" fill="#FFFFFF" font-size="12">#5B3DF5</text>
+
+    <rect x="140" y="0" width="140" height="150" fill="#18C8E8"/>
+    <text x="152" y="120" fill="#0F1222" font-size="14" font-weight="700">Pulse Cyan</text>
+    <text x="152" y="138" fill="#0F1222" font-size="12">#18C8E8</text>
+
+    <rect x="280" y="0" width="140" height="150" fill="#FF6B4A"/>
+    <text x="292" y="120" fill="#0F1222" font-size="14" font-weight="700">Spark Coral</text>
+    <text x="292" y="138" fill="#0F1222" font-size="12">#FF6B4A</text>
+
+    <rect x="420" y="0" width="140" height="150" fill="#0F1222"/>
+    <text x="432" y="120" fill="#FFFFFF" font-size="14" font-weight="700">Midnight</text>
+    <text x="432" y="138" fill="#FFFFFF" font-size="12">#0F1222</text>
+
+    <rect x="560" y="0" width="140" height="150" fill="#5B6178"/>
+    <text x="572" y="120" fill="#FFFFFF" font-size="14" font-weight="700">Slate</text>
+    <text x="572" y="138" fill="#FFFFFF" font-size="12">#5B6178</text>
+
+    <rect x="700" y="0" width="140" height="150" fill="#EEF0F7"/>
+    <text x="712" y="120" fill="#0F1222" font-size="14" font-weight="700">Mist</text>
+    <text x="712" y="138" fill="#0F1222" font-size="12">#EEF0F7</text>
+
+    <rect x="0" y="170" width="840" height="90" rx="12" fill="url(#aoGradPal)"/>
+    <text x="20" y="222" fill="#FFFFFF" font-size="16" font-weight="700">One Gradient · #5B3DF5 → #18C8E8 · 135°</text>
+  </g>
+</svg>

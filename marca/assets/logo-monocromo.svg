@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 64" width="450" height="96" role="img" aria-label="Apps One - logotipo monocromático">
+  <g fill="#0F1222">
+    <rect x="2" y="2" width="27" height="27" rx="8"/>
+    <circle cx="48.5" cy="15.5" r="13.5"/>
+    <rect x="2" y="35" width="27" height="27" rx="8"/>
+    <rect x="35" y="35" width="27" height="27" rx="8"/>
+    <text x="80" y="45" font-family="'Plus Jakarta Sans', 'Segoe UI', Arial, sans-serif" font-size="38" letter-spacing="-1">
+      <tspan font-weight="500">apps</tspan><tspan font-weight="800"> one</tspan>
+    </text>
+  </g>
+</svg>

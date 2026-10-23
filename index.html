@@ -1,0 +1,717 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Apps One</title>
+<link rel="icon" type="image/svg+xml" href="marca/assets/icono-app.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Plus+Jakarta+Sans:wght@500;700;800&display=swap" rel="stylesheet">
+<style>
+/* Colores, tipografía y componentes según el Manual de Marca Apps One v1.0 (marca/). */
+:root {
+  --bg: #FFFFFF; --surface: #EEF0F7; --card: #FFFFFF; --ink: #0F1222; --muted: #5B6178; --line: #EEF0F7; --field: #D5D8E5;
+  --violet: #5B3DF5; --violet-hover: #4A2DE0; --violet-press: #3B22B8; --on-violet: #FFFFFF;
+  --violet-50: #F2EFFF; --violet-100: #E4DEFE; --violet-200: #C9BDFC; --violet-800: #2D1A8C;
+  --cyan: #18C8E8; --coral: #FF6B4A; --mod: #EEF0F7; --logo-mod: #5B3DF5; --logo-one: #5B3DF5;
+  --ok-bg: #DCFCE7; --ok-ink: #166534; --warn-bg: #FEF3C7; --warn-ink: #92400E; --bad-bg: #FEE2E2; --bad-ink: #B91C1C; --info-bg: #DBEAFE; --info-ink: #1E40AF;
+  --disabled-bg: #EEF0F7; --disabled-ink: #A3A9C2;
+  --gradient: linear-gradient(135deg, #5B3DF5 0%, #18C8E8 100%);
+  --shadow-sm: 0 1px 2px rgba(15, 18, 34, .06); --shadow-md: 0 4px 16px rgba(91, 61, 245, .08); --shadow-lg: 0 12px 32px rgba(91, 61, 245, .14);
+  --f-display: "Plus Jakarta Sans", "Segoe UI", "Helvetica Neue", sans-serif;
+  --f-body: Inter, "Segoe UI", Arial, sans-serif;
+  --ease: cubic-bezier(.2, .8, .2, 1);
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --bg: #0F1222; --surface: #1A1E33; --card: #1A1E33; --ink: #F5F6FA; --muted: #A3A9C2; --line: #262B45; --field: #343A5A;
+  --violet: #8B7BFF; --violet-hover: #A394FF; --violet-press: #7466E8; --on-violet: #0F1222;
+  --violet-50: #221E4A; --violet-100: #2B2560; --violet-200: #5B4FB0; --violet-800: #C9BDFC;
+  --mod: #1A1E33; --logo-mod: #FFFFFF; --logo-one: #18C8E8;
+  --ok-bg: #14321F; --ok-ink: #86EFAC; --warn-bg: #3A2A0C; --warn-ink: #FCD34D; --bad-bg: #3B1515; --bad-ink: #FCA5A5; --info-bg: #172447; --info-ink: #93C5FD;
+  --disabled-bg: #262B45; --disabled-ink: #6B7190;
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, .3); --shadow-md: 0 4px 16px rgba(0, 0, 0, .35); --shadow-lg: 0 12px 32px rgba(0, 0, 0, .45);
+  color-scheme: dark; } }
+:root[data-theme="dark"] {
+  --bg: #0F1222; --surface: #1A1E33; --card: #1A1E33; --ink: #F5F6FA; --muted: #A3A9C2; --line: #262B45; --field: #343A5A;
+  --violet: #8B7BFF; --violet-hover: #A394FF; --violet-press: #7466E8; --on-violet: #0F1222;
+  --violet-50: #221E4A; --violet-100: #2B2560; --violet-200: #5B4FB0; --violet-800: #C9BDFC;
+  --mod: #1A1E33; --logo-mod: #FFFFFF; --logo-one: #18C8E8;
+  --ok-bg: #14321F; --ok-ink: #86EFAC; --warn-bg: #3A2A0C; --warn-ink: #FCD34D; --bad-bg: #3B1515; --bad-ink: #FCA5A5; --info-bg: #172447; --info-ink: #93C5FD;
+  --disabled-bg: #262B45; --disabled-ink: #6B7190;
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, .3); --shadow-md: 0 4px 16px rgba(0, 0, 0, .35); --shadow-lg: 0 12px 32px rgba(0, 0, 0, .45);
+  color-scheme: dark; }
+
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--ink); font-family: var(--f-body); font-size: 16px; line-height: 1.5; }
+button, input, textarea, select { font: inherit; color: inherit; }
+.wrap { max-width: 1200px; margin: 0 auto; padding: 0 16px; }
+:focus-visible { outline: 3px solid var(--violet-200); outline-offset: 2px; }
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; } }
+
+/* Encabezado: logo a la izquierda, buscador al centro, acciones a la derecha */
+header { position: sticky; top: 0; z-index: 5; background: var(--bg); border-bottom: 1px solid var(--line); }
+header .wrap { display: flex; align-items: center; gap: 24px; height: 72px; }
+.logo { display: block; height: 32px; flex: none; }
+.logo svg { height: 32px; width: auto; display: block; }
+.buscar { flex: 1; max-width: 480px; position: relative; }
+.buscar svg { position: absolute; left: 14px; top: 50%; transform: translateY(-50%); color: var(--muted); pointer-events: none; }
+.buscar input { width: 100%; height: 44px; padding: 0 14px 0 42px; border: 1px solid var(--field); border-radius: 8px; background: var(--bg); font-size: 14px; }
+.buscar input:focus { border-color: var(--violet); outline: 3px solid var(--violet-100); outline-offset: 0; }
+.acciones { margin-left: auto; display: flex; align-items: center; gap: 8px; }
+nav { display: flex; gap: 4px; }
+nav button { border: 0; background: none; height: 44px; padding: 0 14px; white-space: nowrap; border-radius: 12px; color: var(--muted); font-weight: 600; font-size: 15px; cursor: pointer; transition: color 150ms var(--ease), background 150ms var(--ease); }
+nav button:hover { color: var(--ink); }
+nav button[aria-current="page"] { color: var(--violet); background: var(--violet-50); }
+.usuario { font-size: 14px; color: var(--muted); max-width: 20ch; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+/* Botones */
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; height: 48px; padding: 0 20px; border-radius: 12px; border: 1.5px solid transparent; font-weight: 600; font-size: 16px; cursor: pointer; text-decoration: none; white-space: nowrap; transition: background 150ms var(--ease), border-color 150ms var(--ease), color 150ms var(--ease); }
+.btn.primario { background: var(--violet); color: var(--on-violet); }
+.btn.primario:hover { background: var(--violet-hover); }
+.btn.primario:active { background: var(--violet-press); }
+.btn.secundario { background: var(--card); border-color: var(--violet); color: var(--violet); }
+.btn.secundario:hover { background: var(--violet-50); }
+.btn.destacado { background: var(--gradient); color: #FFFFFF; font-weight: 700; }
+.btn.destacado:hover { filter: brightness(1.06); }
+.btn.terciario { background: none; color: var(--violet); padding: 0 8px; }
+.btn.terciario:hover { text-decoration: underline; }
+.btn.chico { height: 44px; padding: 0 16px; font-size: 15px; }
+.btn:disabled { background: var(--disabled-bg); border-color: transparent; color: var(--disabled-ink); cursor: default; }
+
+/* Hero con patrón Mosaico */
+.hero { position: relative; overflow: hidden; border-bottom: 1px solid var(--line); }
+.hero .wrap { position: relative; padding-top: 72px; padding-bottom: 72px; }
+.hero-texto { position: relative; z-index: 1; max-width: 620px; }
+.overline { font-size: 12px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--violet); margin: 0 0 12px; }
+.display { font-family: var(--f-display); font-weight: 800; font-size: 56px; line-height: 64px; letter-spacing: -.02em; margin: 0 0 16px; text-wrap: balance; }
+.display em { font-style: normal; color: var(--violet); }
+.hero p.lead { font-size: 18px; line-height: 28px; color: var(--muted); margin: 0 0 32px; max-width: 52ch; }
+.mosaico { position: absolute; right: -40px; top: 50%; transform: translateY(-50%); width: 520px; height: auto; pointer-events: none; }
+.mosaico rect { fill: var(--mod); }
+
+main { padding: 0 0 96px; }
+.seccion { padding-top: 48px; }
+.seccion-cab { display: flex; align-items: end; justify-content: space-between; gap: 16px; flex-wrap: wrap; margin-bottom: 24px; }
+h1, h2 { font-family: var(--f-display); text-wrap: balance; margin: 0; }
+h1 { font-weight: 800; font-size: 40px; line-height: 48px; letter-spacing: -.015em; }
+h2 { font-weight: 700; font-size: 32px; line-height: 40px; letter-spacing: -.01em; }
+h3 { font-family: var(--f-display); font-weight: 700; font-size: 24px; line-height: 32px; letter-spacing: -.005em; margin: 0; }
+.sub { color: var(--muted); margin: 8px 0 0; }
+
+.aviso { border-radius: 12px; padding: 14px 16px; margin-top: 24px; display: flex; gap: 10px; align-items: center; font-size: 15px; background: var(--info-bg); color: var(--info-ink); }
+.aviso.ok { background: var(--ok-bg); color: var(--ok-ink); }
+.aviso.bad { background: var(--bad-bg); color: var(--bad-ink); }
+.aviso.demo { background: var(--warn-bg); color: var(--warn-ink); }
+
+/* Filtros por categoría */
+.chips { display: flex; gap: 8px; flex-wrap: wrap; }
+.chips button { height: 44px; padding: 0 16px; border: 1px solid var(--field); background: var(--card); border-radius: 8px; cursor: pointer; font-size: 14px; font-weight: 500; transition: border-color 150ms var(--ease), background 150ms var(--ease), color 150ms var(--ease); }
+.chips button:hover { border-color: var(--violet-200); }
+.chips button[aria-pressed="true"] { background: var(--violet-50); border-color: var(--violet); color: var(--violet); font-weight: 600; }
+
+/* Tarjeta de app (componente 6.2): 4 columnas en escritorio, 2 en tablet, 1 en móvil */
+.grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; }
+@media (max-width: 1100px) { .grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 640px) { .grid { grid-template-columns: 1fr; } }
+.card { background: var(--card); border: 1px solid var(--line); border-radius: 16px; padding: 24px; display: flex; flex-direction: column; gap: 16px; box-shadow: var(--shadow-sm); transition: box-shadow 250ms var(--ease), transform 250ms var(--ease); }
+.card:hover { box-shadow: var(--shadow-md); }
+.card-cab { display: flex; gap: 14px; align-items: center; }
+.icono { flex: none; width: 56px; height: 56px; border-radius: 16px; display: grid; place-items: center; font-family: var(--f-display); font-weight: 800; font-size: 22px; background: var(--violet-50); color: var(--violet); }
+.card-cab h4 { font-family: var(--f-display); font-weight: 700; font-size: 20px; line-height: 28px; margin: 0; }
+.meta { font-size: 14px; line-height: 20px; color: var(--muted); }
+.card p.desc { margin: 0; font-size: 14px; line-height: 20px; color: var(--muted); display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; min-height: 40px; }
+.card-pie { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding-top: 16px; border-top: 1px solid var(--line); margin-top: auto; }
+.precio { font-family: var(--f-display); font-weight: 800; font-size: 20px; letter-spacing: -.01em; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.precio small { font-family: var(--f-body); font-weight: 400; font-size: 14px; color: var(--muted); letter-spacing: 0; }
+.desde { display: block; font-size: 12px; font-weight: 500; color: var(--muted); }
+
+/* Badges (6.3) */
+.badges { display: flex; gap: 6px; flex-wrap: wrap; min-height: 24px; }
+.badge { display: inline-flex; align-items: center; gap: 4px; font-size: 12px; font-weight: 600; line-height: 16px; padding: 4px 8px; border-radius: 8px; background: var(--surface); color: var(--muted); }
+.badge.popular { background: var(--violet-100); color: var(--violet-800); }
+.badge.activa, .badge.contratada { background: var(--ok-bg); color: var(--ok-ink); }
+.badge.pendiente, .badge.pausada { background: var(--warn-bg); color: var(--warn-ink); }
+.badge.cancelada, .badge.vencida { background: var(--bad-bg); color: var(--bad-ink); }
+
+.vacio { grid-column: 1 / -1; background: var(--surface); border-radius: 16px; padding: 48px 24px; text-align: center; color: var(--muted); }
+.vacio b { display: block; color: var(--ink); font-family: var(--f-display); font-size: 20px; margin-bottom: 8px; }
+.vacio .btn { margin-top: 16px; }
+
+.tabla-scroll { overflow-x: auto; border: 1px solid var(--line); border-radius: 16px; background: var(--card); }
+.tabla { width: 100%; border-collapse: collapse; min-width: 640px; }
+.tabla th, .tabla td { padding: 14px 16px; text-align: left; border-bottom: 1px solid var(--line); font-size: 14px; }
+.tabla th { color: var(--muted); font-weight: 600; font-size: 12px; letter-spacing: .08em; text-transform: uppercase; background: var(--surface); }
+.tabla tr:last-child td { border-bottom: 0; }
+.tabla .n { text-align: right; font-variant-numeric: tabular-nums; }
+
+/* Modales */
+dialog { border: 0; border-radius: 16px; background: var(--card); color: var(--ink); padding: 0; width: min(34rem, calc(100vw - 32px)); box-shadow: var(--shadow-lg); }
+dialog::backdrop { background: rgb(15 18 34 / .5); }
+.dlg { padding: 24px; display: flex; flex-direction: column; gap: 16px; }
+.dlg-cab { display: flex; justify-content: space-between; align-items: start; gap: 12px; }
+.cerrar { border: 0; background: none; width: 44px; height: 44px; margin: -8px -8px 0 0; border-radius: 12px; font-size: 24px; line-height: 1; color: var(--muted); cursor: pointer; }
+.cerrar:hover { background: var(--surface); }
+.plan { border: 1px solid var(--field); border-radius: 12px; padding: 16px; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 12px 16px; }
+.plan b { font-weight: 600; }
+.plan .meta { display: block; }
+.plan .precio { font-size: 18px; }
+.nota { font-size: 12px; line-height: 16px; font-weight: 500; letter-spacing: .01em; color: var(--muted); margin: 0; }
+label { display: flex; flex-direction: column; gap: 6px; font-size: 14px; font-weight: 500; }
+label .opcional { font-weight: 400; color: var(--muted); }
+input[type="email"], input[type="text"], select, textarea { height: 48px; padding: 0 14px; border: 1px solid var(--field); border-radius: 8px; background: var(--bg); font-size: 16px; }
+textarea { height: auto; min-height: 112px; padding: 12px 14px; resize: vertical; line-height: 24px; }
+input[type="email"]:focus, input[type="text"]:focus, select:focus, textarea:focus { border-color: var(--violet); outline: 3px solid var(--violet-100); outline-offset: 0; }
+[aria-invalid="true"] { border-color: var(--bad-ink) !important; }
+.campo-error { display: flex; gap: 6px; align-items: center; color: var(--bad-ink); font-size: 14px; font-weight: 400; }
+.campo-error:empty { display: none; }
+.campos-fila { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+@media (max-width: 640px) { .campos-fila { grid-template-columns: 1fr; } }
+.error { color: var(--bad-ink); font-size: 14px; margin: 0; }
+.exito { text-align: center; padding: 16px 0 8px; }
+.exito .icono { margin: 0 auto 16px; background: var(--ok-bg); color: var(--ok-ink); }
+
+/* Banda de desarrollo a medida */
+.a-medida { margin-top: 64px; border-radius: 24px; background: var(--surface); padding: 40px; display: flex; align-items: center; justify-content: space-between; gap: 24px; flex-wrap: wrap; }
+.a-medida h2 { margin: 12px 0 8px; }
+.a-medida p { margin: 0; color: var(--muted); max-width: 56ch; }
+.badge.medida { background: #0F1222; color: #18C8E8; }
+
+/* Pie: Midnight con logo en negativo */
+footer { background: #0F1222; color: #A3A9C2; }
+footer .wrap { display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; padding-top: 32px; padding-bottom: 32px; font-size: 14px; }
+footer svg { height: 32px; width: auto; display: block; }
+
+@media (max-width: 900px) {
+  .mosaico { opacity: .5; right: -160px; }
+  .buscar { display: none; }
+  .buscar.movil { display: block; max-width: none; margin-bottom: 24px; }
+}
+@media (min-width: 901px) { .buscar.movil { display: none; } }
+@media (max-width: 640px) {
+  header .wrap { gap: 8px; height: 64px; }
+  .logo svg .texto { display: none; }
+  .usuario { display: none; }
+  .acciones { gap: 4px; }
+  nav { gap: 0; }
+  nav button[data-vista="tienda"] { display: none; }  /* el logo lleva al catálogo */
+  .cotizar-largo { display: none; }
+  .a-medida { padding: 24px; margin-top: 48px; }
+  nav button { padding: 0 8px; font-size: 14px; }
+  .acciones .btn.chico { padding: 0 12px; font-size: 14px; }
+  .plan .btn { width: 100%; }
+  .hero .wrap { padding-top: 48px; padding-bottom: 48px; }
+  .display { font-size: 40px; line-height: 48px; }
+  h1 { font-size: 32px; line-height: 40px; }
+  h2 { font-size: 26px; line-height: 32px; }
+  .mosaico { display: none; }
+  .card { padding: 16px; }
+}
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <a class="logo" href="#" data-vista="tienda" aria-label="Apps One, ir al catálogo">
+      <svg viewBox="0 0 230 64" aria-hidden="true">
+        <defs><linearGradient id="ao-grad" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#18C8E8"/><stop offset="1" stop-color="#5B3DF5"/></linearGradient></defs>
+        <rect x="2" y="2" width="27" height="27" rx="8" style="fill: var(--logo-mod)"/>
+        <circle cx="48.5" cy="15.5" r="13.5" fill="url(#ao-grad)"/>
+        <rect x="2" y="35" width="27" height="27" rx="8" style="fill: var(--logo-mod)"/>
+        <rect x="35" y="35" width="27" height="27" rx="8" style="fill: var(--logo-mod)"/>
+        <text class="texto" x="80" y="45" font-family="'Plus Jakarta Sans', 'Segoe UI', Arial, sans-serif" font-size="38" letter-spacing="-1"><tspan font-weight="500" style="fill: var(--ink)">apps</tspan><tspan font-weight="800" style="fill: var(--logo-one)"> one</tspan></text>
+      </svg>
+    </a>
+    <div class="buscar" role="search">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+      <input type="search" class="q" aria-label="Buscar apps" placeholder="¿Qué quieres resolver hoy? Ej.: reservas, inventario, ventas…">
+    </div>
+    <div class="acciones">
+      <nav>
+        <button data-vista="tienda" aria-current="page">Catálogo</button>
+        <button data-vista="mis-apps">Mis apps</button>
+      </nav>
+      <span class="usuario" id="usuario"></span>
+      <span id="sesion"></span>
+      <button class="btn primario chico" data-cotizar>Cotizar<span class="cotizar-largo">app</span></button>
+    </div>
+  </div>
+</header>
+
+<section class="hero" id="hero">
+  <svg class="mosaico" viewBox="0 0 520 380" aria-hidden="true">
+    <defs><linearGradient id="ao-grad-hero" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#5B3DF5"/><stop offset="1" stop-color="#18C8E8"/></linearGradient></defs>
+    <rect x="40" y="20" width="96" height="96" rx="29"/><rect x="157" y="20" width="96" height="96" rx="29"/><rect x="274" y="20" width="96" height="96" rx="29"/><rect x="391" y="20" width="96" height="96" rx="29"/>
+    <rect x="40" y="137" width="96" height="96" rx="29"/><rect x="157" y="137" width="96" height="96" rx="29"/><circle cx="322" cy="185" r="48" fill="url(#ao-grad-hero)"/><rect x="391" y="137" width="96" height="96" rx="29"/>
+    <rect x="40" y="254" width="96" height="96" rx="29"/><rect x="157" y="254" width="96" height="96" rx="29"/><rect x="274" y="254" width="96" height="96" rx="29"/><rect x="391" y="254" width="96" height="96" rx="29"/>
+  </svg>
+  <div class="wrap">
+    <div class="hero-texto">
+      <p class="overline">Catálogo de apps</p>
+      <h1 class="display">Tu app, <em>lista</em> o a medida.</h1>
+      <p class="lead">Encuentra la app que necesitas, págala mes a mes con tarjeta de crédito o débito y empieza hoy. Sin costos ocultos.</p>
+      <a class="btn destacado" href="#catalogo-seccion">Explorar catálogo</a>
+    </div>
+  </div>
+</section>
+
+<main class="wrap">
+  <div id="avisos"></div>
+
+  <section id="vista-tienda">
+    <div class="seccion" id="catalogo-seccion">
+      <div class="buscar movil" role="search">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+        <input type="search" class="q" aria-label="Buscar apps" placeholder="¿Qué quieres resolver hoy?">
+      </div>
+      <div class="seccion-cab">
+        <div><h2>Encuentra tu app</h2><p class="sub">Precios en pesos chilenos, IVA incluido.</p></div>
+        <div class="chips" id="categorias"></div>
+      </div>
+      <div class="grid" id="catalogo"></div>
+    </div>
+    <div class="a-medida">
+      <div>
+        <span class="badge medida">A medida</span>
+        <h2>¿No está la app que necesitas?</h2>
+        <p>Cuéntanos tu idea; la construimos contigo. Te enviamos la cotización en menos de 48 horas.</p>
+      </div>
+      <button class="btn secundario" data-cotizar>Cotizar proyecto</button>
+    </div>
+  </section>
+
+  <section id="vista-mis-apps" hidden>
+    <div class="seccion">
+      <h1>Mis apps</h1>
+      <p class="sub">Las apps habilitadas en tu cuenta.</p>
+    </div>
+    <div class="grid" id="mis-apps" style="margin-top:24px"></div>
+    <div class="seccion">
+      <h2 style="margin-bottom:24px">Suscripciones</h2>
+      <div id="suscripciones"></div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <svg viewBox="0 0 230 64" role="img" aria-label="Apps One">
+      <defs><linearGradient id="ao-grad-neg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#18C8E8"/><stop offset="1" stop-color="#8B7BFF"/></linearGradient></defs>
+      <rect x="2" y="2" width="27" height="27" rx="8" fill="#FFFFFF"/><circle cx="48.5" cy="15.5" r="13.5" fill="url(#ao-grad-neg)"/>
+      <rect x="2" y="35" width="27" height="27" rx="8" fill="#FFFFFF"/><rect x="35" y="35" width="27" height="27" rx="8" fill="#FFFFFF"/>
+      <text x="80" y="45" font-family="'Plus Jakarta Sans', 'Segoe UI', Arial, sans-serif" font-size="38" letter-spacing="-1"><tspan font-weight="500" fill="#FFFFFF">apps</tspan><tspan font-weight="800" fill="#18C8E8"> one</tspan></text>
+    </svg>
+    <span>Tu app, lista o a medida.</span>
+  </div>
+</footer>
+
+<dialog id="dlg-app"><div class="dlg" id="dlg-app-cuerpo"></div></dialog>
+
+<dialog id="dlg-login">
+  <form class="dlg" id="form-login">
+    <div class="dlg-cab"><h3>Ingresa a Apps One</h3><button type="button" class="cerrar" aria-label="Cerrar" data-cerrar>×</button></div>
+    <p class="meta" style="margin:0">Te enviamos un enlace a tu correo para entrar, sin contraseña. Si es tu primera vez, creamos tu cuenta.</p>
+    <label>Correo<input type="email" id="login-email" required autocomplete="email" placeholder="tu@empresa.cl"></label>
+    <p class="error" id="login-error" hidden></p>
+    <button class="btn primario" id="login-btn">Enviar enlace</button>
+  </form>
+</dialog>
+
+<dialog id="dlg-cotizar">
+  <form class="dlg" id="form-cotizar" novalidate>
+    <div class="dlg-cab">
+      <div><span class="badge medida">A medida</span><h3 style="margin-top:8px">Cotiza tu app</h3></div>
+      <button type="button" class="cerrar" aria-label="Cerrar" data-cerrar>×</button>
+    </div>
+    <p class="meta" style="margin:0">Cuéntanos qué quieres resolver. Te enviamos la cotización en menos de 48 horas.</p>
+    <div class="campos-fila">
+      <label>Nombre<input type="text" name="nombre" autocomplete="name" maxlength="120"><span class="campo-error" id="err-nombre"></span></label>
+      <label>Correo<input type="email" name="email" autocomplete="email" maxlength="254"><span class="campo-error" id="err-email"></span></label>
+    </div>
+    <label><span>Empresa <span class="opcional">(opcional)</span></span><input type="text" name="empresa" autocomplete="organization" maxlength="120"></label>
+    <label>¿Qué necesitas resolver?
+      <textarea name="necesidad" maxlength="2000" placeholder="Ej.: una app para que mis clientes reserven horas y paguen en línea."></textarea>
+      <span class="campo-error" id="err-necesidad"></span></label>
+    <label><span>Presupuesto aproximado <span class="opcional">(opcional)</span></span>
+      <select name="presupuesto">
+        <option value="">Elige un rango</option>
+        <option value="hasta_2m">Hasta $2.000.000</option>
+        <option value="2m_5m">$2.000.000 a $5.000.000</option>
+        <option value="5m_15m">$5.000.000 a $15.000.000</option>
+        <option value="mas_15m">Más de $15.000.000</option>
+        <option value="no_se">Aún no lo sé</option>
+      </select></label>
+    <p class="error" id="cotizar-error" hidden></p>
+    <button class="btn primario" id="cotizar-btn">Enviar cotización</button>
+  </form>
+</dialog>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script>
+<script>
+// Configuración del proyecto Supabase de Apps One (la clave publicable puede ir en la página).
+const SB_URL = 'https://TU-PROYECTO.supabase.co';
+const SB_KEY = 'TU-CLAVE-PUBLICABLE';
+// Sin proyecto configurado, la página corre con datos de ejemplo para revisar la interfaz.
+const DEMO = SB_URL.includes('TU-PROYECTO');
+
+const $ = (s) => document.querySelector(s);
+const esc = (v) => String(v ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]);
+const clp = (n) => '$' + new Intl.NumberFormat('es-CL', { maximumFractionDigits: 0 }).format(n);
+const fecha = (d) => d ? new Date(d).toLocaleDateString('es-CL', { day: 'numeric', month: 'short', year: 'numeric' }) : '—';
+const periodo = (m) => m === 1 ? '/mes' : m === 12 ? '/año' : ` cada ${m} meses`;
+const normalizar = (s) => String(s ?? '').normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase();
+const ESTADO = { pendiente: 'Pendiente de pago', activa: 'Activa', pausada: 'Pausada', cancelada: 'Cancelada' };
+const CHECK = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>';
+
+const estado = { usuario: null, categorias: [], apps: [], planes: [], misApps: [], suscripciones: [], filtro: 'todas', busqueda: '', vista: 'tienda' };
+
+// Datos ------------------------------------------------------------------
+
+const sb = DEMO ? null : window.supabase.createClient(SB_URL, SB_KEY);
+
+const demo = {
+  categorias: [
+    { id: 'gestion', nombre: 'Gestión' }, { id: 'finanzas', nombre: 'Finanzas' }, { id: 'analitica', nombre: 'Analítica' },
+  ],
+  apps: [
+    { id: 'vannucci', categoria_id: 'gestion', nombre: 'Portal Vannucci', descripcion: 'Producción del taller, orfebres, trabajos en revisión y costos.', url: 'https://vannucci-app.vercel.app' },
+    { id: 'inventario', categoria_id: 'gestion', nombre: 'Inventario', descripcion: 'Stock, bodegas y movimientos con alertas de quiebre.', url: '#' },
+    { id: 'cobranza', categoria_id: 'finanzas', nombre: 'Cobranza', descripcion: 'Seguimiento de facturas por cobrar y recordatorios a clientes.', url: '#' },
+    { id: 'tableros', categoria_id: 'analitica', nombre: 'Tableros', descripcion: 'Indicadores del negocio conectados a tus planillas.', url: '#' },
+  ],
+  planes: [
+    { id: 1, nombre: 'Vannucci mensual', precio_clp: 19990, frecuencia_meses: 1, apps: ['vannucci'] },
+    { id: 2, nombre: 'Vannucci anual', precio_clp: 199900, frecuencia_meses: 12, apps: ['vannucci'] },
+    { id: 3, nombre: 'Inventario mensual', precio_clp: 14990, frecuencia_meses: 1, apps: ['inventario'] },
+    { id: 4, nombre: 'Cobranza mensual', precio_clp: 9990, frecuencia_meses: 1, apps: ['cobranza'] },
+    { id: 5, nombre: 'Tableros mensual', precio_clp: 12990, frecuencia_meses: 1, apps: ['tableros'] },
+    { id: 6, nombre: 'Pack Gestión', precio_clp: 29990, frecuencia_meses: 1, apps: ['vannucci', 'inventario'] },
+  ],
+  suscripciones: [
+    { id: 'd1', estado: 'activa', plan_id: 1, vigente_hasta: new Date(Date.now() + 18 * 864e5).toISOString(), proximo_cobro: new Date(Date.now() + 18 * 864e5).toISOString() },
+  ],
+};
+
+async function cargarCatalogo() {
+  if (DEMO) {
+    estado.categorias = demo.categorias; estado.apps = demo.apps; estado.planes = demo.planes;
+    return;
+  }
+  const [c, a, p] = await Promise.all([
+    sb.from('categorias').select('id, nombre').order('orden'),
+    sb.from('aplicaciones').select('id, categoria_id, nombre, descripcion, url').order('nombre'),
+    sb.from('planes').select('id, nombre, precio_clp, frecuencia_meses, plan_aplicaciones(aplicacion_id)').order('precio_clp'),
+  ]);
+  const error = c.error || a.error || p.error;
+  if (error) throw error;
+  estado.categorias = c.data;
+  estado.apps = a.data;
+  estado.planes = p.data.map((x) => ({ ...x, apps: x.plan_aplicaciones.map((pa) => pa.aplicacion_id) }));
+}
+
+async function cargarCuenta() {
+  if (!estado.usuario) { estado.misApps = []; estado.suscripciones = []; return; }
+  if (DEMO) {
+    estado.suscripciones = demo.suscripciones;
+    const vigentes = demo.suscripciones.filter((s) => s.vigente_hasta && new Date(s.vigente_hasta) > new Date());
+    estado.misApps = demo.apps.flatMap((a) => {
+      const hasta = vigentes.filter((s) => planDe(s.plan_id)?.apps.includes(a.id)).map((s) => s.vigente_hasta).sort().pop();
+      return hasta ? [{ aplicacion_id: a.id, nombre: a.nombre, url: a.url, vigente_hasta: hasta }] : [];
+    });
+    return;
+  }
+  const [m, s] = await Promise.all([
+    sb.rpc('aplicaciones_habilitadas'),
+    sb.from('suscripciones').select('id, estado, plan_id, vigente_hasta, proximo_cobro').order('creada_en', { ascending: false }),
+  ]);
+  if (m.error || s.error) throw m.error || s.error;
+  estado.misApps = m.data;
+  estado.suscripciones = s.data;
+}
+
+async function suscribir(planId) {
+  if (DEMO) {
+    demo.suscripciones.push({ id: 'd' + Date.now(), estado: 'activa', plan_id: planId, vigente_hasta: new Date(Date.now() + 30 * 864e5).toISOString(), proximo_cobro: new Date(Date.now() + 30 * 864e5).toISOString() });
+    $('#dlg-app').close();
+    aviso('ok', `${CHECK} ¡Listo! Ya puedes usar tu app. (Modo de ejemplo: no se pasó por Mercado Pago).`);
+    await refrescarCuenta();
+    return;
+  }
+  const { data, error } = await sb.functions.invoke('mp-crear-suscripcion', { body: { plan_id: planId } });
+  if (error) {
+    const detalle = await error.context?.json?.().catch(() => null);
+    throw new Error(detalle?.error ?? 'No pudimos abrir el pago. Inténtalo de nuevo en unos minutos.');
+  }
+  location.href = data.init_point;
+}
+
+// Interfaz ----------------------------------------------------------------
+
+const planDe = (id) => estado.planes.find((p) => p.id === id);
+const appHabilitada = (id) => estado.misApps.some((a) => a.aplicacion_id === id);
+const planesDe = (appId) => estado.planes.filter((p) => p.apps.includes(appId));
+const nombreApp = (id) => estado.apps.find((a) => a.id === id)?.nombre ?? id;
+const nombreCategoria = (id) => estado.categorias.find((c) => c.id === id)?.nombre ?? 'Otras';
+const icono = (nombre) => `<span class="icono" aria-hidden="true">${esc(nombre.trim()[0]?.toUpperCase())}</span>`;
+
+function aviso(tipo, html) {
+  $('#avisos').innerHTML = html ? `<div class="aviso ${tipo}" role="status">${html}</div>` : '';
+}
+
+function pintarSesion() {
+  $('#usuario').textContent = estado.usuario?.email ?? '';
+  $('#usuario').title = estado.usuario?.email ?? '';
+  $('#sesion').innerHTML = estado.usuario
+    ? '<button class="btn terciario chico" id="salir">Salir</button>'
+    : '<button class="btn terciario chico" id="entrar">Ingresar</button>';
+}
+
+function pintarTienda() {
+  const usadas = new Set(estado.apps.map((a) => a.categoria_id));
+  const cats = estado.categorias.filter((c) => usadas.has(c.id));
+  $('#categorias').innerHTML = [{ id: 'todas', nombre: 'Todas' }, ...cats]
+    .map((c) => `<button data-cat="${esc(c.id)}" aria-pressed="${estado.filtro === c.id}">${esc(c.nombre)}</button>`).join('');
+
+  const q = normalizar(estado.busqueda.trim());
+  const apps = estado.apps.filter((a) =>
+    (estado.filtro === 'todas' || a.categoria_id === estado.filtro) &&
+    (!q || normalizar(`${a.nombre} ${a.descripcion} ${nombreCategoria(a.categoria_id)}`).includes(q)));
+
+  $('#catalogo').innerHTML = apps.length ? apps.map((a) => {
+    const mensuales = planesDe(a.id).filter((p) => p.frecuencia_meses === 1);
+    const desde = mensuales.length ? Math.min(...mensuales.map((p) => p.precio_clp)) : null;
+    const packs = planesDe(a.id).some((p) => p.apps.length > 1);
+    return `<article class="card">
+      <div class="card-cab">${icono(a.nombre)}<div><h4>${esc(a.nombre)}</h4><span class="meta">${esc(nombreCategoria(a.categoria_id))}</span></div></div>
+      <p class="desc">${esc(a.descripcion)}</p>
+      <div class="badges">
+        ${appHabilitada(a.id) ? `<span class="badge contratada">${CHECK} Contratada</span>` : ''}
+        ${packs ? '<span class="badge popular">Incluida en packs</span>' : ''}
+      </div>
+      <div class="card-pie">
+        ${desde != null ? `<span class="precio"><span class="desde">Desde</span>${clp(desde)}<small> /mes</small></span>` : '<span class="meta">Consulta planes</span>'}
+        <button class="btn secundario chico" data-app="${esc(a.id)}">Ver app</button>
+      </div>
+    </article>`;
+  }).join('') : `<div class="vacio"><b>No encontramos esa app… todavía.</b>Prueba con otra palabra, o cuéntanos qué necesitas y la creamos para ti.
+      <br><button class="btn primario" data-cotizar>Cotizar una a medida</button> <button class="btn terciario" data-limpiar>Ver todo el catálogo</button></div>`;
+}
+
+function pintarMisApps() {
+  if (!estado.usuario) {
+    $('#mis-apps').innerHTML = '<div class="vacio"><b>Ingresa para ver tus apps</b>Aquí verás las apps que tienes contratadas y el estado de tus pagos.<br><button class="btn primario" data-entrar>Ingresar</button></div>';
+    $('#suscripciones').innerHTML = '';
+    return;
+  }
+  $('#mis-apps').innerHTML = estado.misApps.length ? estado.misApps.map((a) => `
+    <article class="card">
+      <div class="card-cab">${icono(a.nombre)}<div><h4>${esc(a.nombre)}</h4><span class="meta">Vigente hasta ${fecha(a.vigente_hasta)}</span></div></div>
+      <div class="badges"><span class="badge activa">${CHECK} Habilitada</span></div>
+      <div class="card-pie"><span></span><a class="btn primario chico" href="${esc(a.url)}" target="_blank" rel="noopener">Abrir app</a></div>
+    </article>`).join('')
+    : '<div class="vacio"><b>Aún no tienes apps</b>Elige una del catálogo y empieza hoy.<br><button class="btn primario" data-vista-ir="tienda">Ver catálogo</button></div>';
+
+  const filas = estado.suscripciones.map((s) => {
+    const p = planDe(s.plan_id);
+    const vencida = s.estado !== 'pendiente' && s.vigente_hasta && new Date(s.vigente_hasta) < new Date();
+    const clase = vencida ? 'vencida' : s.estado;
+    return `<tr>
+      <td><b>${esc(p?.nombre ?? 'Plan')}</b><br><span class="meta">${esc((p?.apps ?? []).map(nombreApp).join(', '))}</span></td>
+      <td><span class="badge ${clase}">${clase === 'activa' ? CHECK + ' ' : ''}${vencida ? 'Vencida' : ESTADO[s.estado]}</span></td>
+      <td class="n">${p ? clp(p.precio_clp) + periodo(p.frecuencia_meses) : '—'}</td>
+      <td>${fecha(s.vigente_hasta)}</td>
+      <td>${s.estado === 'activa' ? fecha(s.proximo_cobro) : '—'}</td>
+    </tr>`;
+  }).join('');
+  $('#suscripciones').innerHTML = filas
+    ? `<div class="tabla-scroll"><table class="tabla"><thead><tr><th>Plan</th><th>Estado</th><th class="n">Precio</th><th>Vigente hasta</th><th>Próximo cobro</th></tr></thead><tbody>${filas}</tbody></table></div>`
+    : '<div class="vacio">Todavía no tienes suscripciones.</div>';
+}
+
+function abrirApp(id) {
+  const a = estado.apps.find((x) => x.id === id);
+  const contratados = new Set(estado.suscripciones.filter((s) => s.estado === 'activa' || s.estado === 'pausada').map((s) => s.plan_id));
+  const planes = planesDe(id).map((p) => {
+    const otras = p.apps.filter((x) => x !== id).map(nombreApp);
+    const boton = contratados.has(p.id) ? `<span class="badge contratada">${CHECK} Contratado</span>`
+      : estado.usuario ? `<button class="btn primario chico" data-plan="${p.id}">Suscribirme</button>`
+      : '<button class="btn secundario chico" data-entrar>Ingresar para suscribirme</button>';
+    return `<div class="plan"><div><b>${esc(p.nombre)}</b>
+      <span class="meta"><span class="precio">${clp(p.precio_clp)}</span> ${periodo(p.frecuencia_meses).trim()}${otras.length ? ` · incluye ${esc(otras.join(', '))}` : ''}</span></div>${boton}</div>`;
+  }).join('') || '<div class="vacio">Esta app aún no tiene planes a la venta.</div>';
+  $('#dlg-app-cuerpo').innerHTML = `
+    <div class="dlg-cab"><div class="card-cab">${icono(a.nombre)}<div><h3>${esc(a.nombre)}</h3><span class="meta">${esc(nombreCategoria(a.categoria_id))}</span></div></div>
+      <button class="cerrar" aria-label="Cerrar" data-cerrar>×</button></div>
+    <p class="meta" style="margin:0">${esc(a.descripcion)}</p>
+    ${planes}
+    <p class="error" id="plan-error" hidden></p>
+    <p class="nota">Pagas con tarjeta de crédito o débito en Mercado Pago. Puedes cancelar cuando quieras y mantienes el acceso hasta el fin del período pagado. Precios con IVA incluido.</p>`;
+  $('#dlg-app').showModal();
+}
+
+function abrirCotizar() {
+  $('#dlg-app').close();
+  const form = $('#form-cotizar');
+  form.hidden = false;
+  $('#cotizar-ok')?.remove();
+  if (estado.usuario && !form.email.value) {
+    form.email.value = estado.usuario.email ?? '';
+    form.nombre.value = form.nombre.value || (estado.usuario.user_metadata?.nombre ?? '');
+  }
+  if (!form.necesidad.value && estado.busqueda.trim()) form.necesidad.value = `Busco una app para ${estado.busqueda.trim()}.`;
+  $('#dlg-cotizar').showModal();
+}
+
+// Valida los campos obligatorios y devuelve los datos, o null si hay errores (mostrados bajo cada campo).
+function leerCotizacion(form) {
+  const datos = {
+    nombre: form.nombre.value.trim(),
+    email: form.email.value.trim().toLowerCase(),
+    empresa: form.empresa.value.trim() || null,
+    necesidad: form.necesidad.value.trim(),
+    presupuesto: form.presupuesto.value || null,
+  };
+  const errores = {
+    nombre: datos.nombre.length < 2 ? 'Escribe tu nombre para saber cómo llamarte.' : '',
+    email: !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(datos.email) ? 'Revisa tu correo; por ejemplo: nombre@empresa.cl' : '',
+    necesidad: datos.necesidad.length < 10 ? 'Cuéntanos un poco más (al menos 10 caracteres) para cotizar bien.' : '',
+  };
+  for (const [campo, msg] of Object.entries(errores)) {
+    form[campo].setAttribute('aria-invalid', msg ? 'true' : 'false');
+    $(`#err-${campo}`).innerHTML = msg ? `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg>${msg}` : '';
+  }
+  const primero = Object.keys(errores).find((c) => errores[c]);
+  if (primero) { form[primero].focus(); return null; }
+  return datos;
+}
+
+function irA(vista) {
+  estado.vista = vista;
+  document.querySelectorAll('nav button').forEach((b) =>
+    b.dataset.vista === vista ? b.setAttribute('aria-current', 'page') : b.removeAttribute('aria-current'));
+  $('#hero').hidden = vista !== 'tienda';
+  $('#vista-tienda').hidden = vista !== 'tienda';
+  $('#vista-mis-apps').hidden = vista !== 'mis-apps';
+  window.scrollTo({ top: 0 });
+}
+
+function pintar() { pintarSesion(); pintarTienda(); pintarMisApps(); }
+
+async function refrescarCuenta() {
+  try { await cargarCuenta(); } catch (e) { aviso('bad', 'No pudimos cargar tu cuenta. Recarga la página para intentarlo de nuevo.'); console.error(e); }
+  pintar();
+}
+
+// Al volver de Mercado Pago la suscripción se activa cuando llega el webhook: se espera un rato.
+async function esperarActivacion(id) {
+  aviso('', 'Estamos confirmando tu pago con Mercado Pago…');
+  irA('mis-apps');
+  for (let i = 0; i < 20; i++) {
+    await refrescarCuenta();
+    const s = estado.suscripciones.find((x) => x.id === id);
+    if (s?.estado === 'activa') { aviso('ok', `${CHECK} ¡Listo! Ya puedes usar tu app. Te enviamos los detalles a tu correo.`); break; }
+    if (s?.estado === 'cancelada') { aviso('bad', 'Algo salió mal con el pago. Revisa los datos de tu tarjeta e inténtalo de nuevo desde el catálogo.'); break; }
+    await new Promise((r) => setTimeout(r, 3000));
+    if (i === 19) aviso('', 'Mercado Pago aún no confirma tu pago. Revisa esta página en unos minutos.');
+  }
+  history.replaceState(null, '', location.pathname);
+}
+
+// Eventos -------------------------------------------------------------------
+
+document.querySelectorAll('.q').forEach((input) => input.addEventListener('input', () => {
+  estado.busqueda = input.value;
+  document.querySelectorAll('.q').forEach((otro) => { if (otro !== input) otro.value = input.value; });
+  if (estado.vista !== 'tienda') irA('tienda');
+  pintarTienda();
+}));
+
+document.addEventListener('click', async (ev) => {
+  const t = ev.target.closest('button, a');
+  if (!t) return;
+  if (t.dataset.vista) { ev.preventDefault(); irA(t.dataset.vista); }
+  else if (t.dataset.vistaIr) irA(t.dataset.vistaIr);
+  else if (t.dataset.cat) { estado.filtro = t.dataset.cat; pintarTienda(); }
+  else if ('limpiar' in t.dataset) {
+    estado.filtro = 'todas'; estado.busqueda = '';
+    document.querySelectorAll('.q').forEach((i) => { i.value = ''; });
+    pintarTienda();
+  }
+  else if (t.dataset.app) abrirApp(t.dataset.app);
+  else if ('cotizar' in t.dataset) abrirCotizar();
+  else if ('cerrar' in t.dataset) t.closest('dialog').close();
+  else if (t.id === 'entrar' || 'entrar' in t.dataset) {
+    $('#dlg-app').close();
+    if (DEMO) { estado.usuario = { email: 'demo@appsone.cl' }; await refrescarCuenta(); return; }
+    $('#login-error').hidden = true;
+    $('#dlg-login').showModal();
+  } else if (t.id === 'salir') {
+    if (!DEMO) await sb.auth.signOut();
+    estado.usuario = null; await refrescarCuenta(); irA('tienda');
+  } else if (t.dataset.plan) {
+    t.disabled = true; t.textContent = 'Abriendo Mercado Pago…';
+    try { await suscribir(Number(t.dataset.plan)); }
+    catch (e) {
+      const err = $('#plan-error'); err.textContent = e.message; err.hidden = false;
+      t.disabled = false; t.textContent = 'Suscribirme';
+    }
+  }
+});
+
+$('#form-login').addEventListener('submit', async (ev) => {
+  ev.preventDefault();
+  const btn = $('#login-btn'), err = $('#login-error');
+  btn.disabled = true; err.hidden = true;
+  const { error } = await sb.auth.signInWithOtp({
+    email: $('#login-email').value.trim(),
+    options: { shouldCreateUser: true, emailRedirectTo: location.origin + location.pathname },
+  });
+  btn.disabled = false;
+  if (error) { err.textContent = 'No pudimos enviar el enlace. Revisa tu correo e inténtalo de nuevo.'; err.hidden = false; console.error(error); return; }
+  $('#dlg-login').close();
+  aviso('ok', `${CHECK} Te enviamos un enlace a tu correo. Ábrelo para entrar.`);
+});
+
+$('#form-cotizar').addEventListener('submit', async (ev) => {
+  ev.preventDefault();
+  const form = ev.target, btn = $('#cotizar-btn'), err = $('#cotizar-error');
+  err.hidden = true;
+  const datos = leerCotizacion(form);
+  if (!datos) return;
+  btn.disabled = true; btn.textContent = 'Enviando…';
+  const { error } = DEMO ? { error: null } : await sb.from('cotizaciones').insert(datos);
+  btn.disabled = false; btn.textContent = 'Enviar cotización';
+  if (error) { err.textContent = 'No pudimos enviar tu cotización. Revisa tu conexión e inténtalo de nuevo.'; err.hidden = false; console.error(error); return; }
+  form.reset();
+  form.hidden = true;
+  form.insertAdjacentHTML('afterend', `<div class="dlg exito" id="cotizar-ok">
+    <span class="icono">${CHECK.replace(/14/g, '28')}</span>
+    <h3>¡Recibimos tu idea!</h3>
+    <p class="meta" style="margin:0">Te contactaremos en menos de 48 horas a ${esc(datos.email)}.</p>
+    <button class="btn secundario" data-cerrar>Volver al catálogo</button></div>`);
+});
+
+// Inicio ----------------------------------------------------------------------
+
+(async () => {
+  if (DEMO) aviso('demo', 'Modo de ejemplo: configura SB_URL y SB_KEY para conectar con Supabase y Mercado Pago.');
+  try { await cargarCatalogo(); } catch (e) { aviso('bad', 'No pudimos cargar el catálogo. Recarga la página para intentarlo de nuevo.'); console.error(e); }
+  pintar();
+  if (DEMO) return;
+
+  const { data: { session } } = await sb.auth.getSession();
+  estado.usuario = session?.user ?? null;
+  await refrescarCuenta();
+  sb.auth.onAuthStateChange((_evento, s) => {
+    const antes = estado.usuario?.id;
+    estado.usuario = s?.user ?? null;
+    if (antes !== estado.usuario?.id) refrescarCuenta();
+  });
+
+  const vuelta = new URLSearchParams(location.search).get('suscripcion');
+  if (vuelta && estado.usuario) esperarActivacion(vuelta);
+})();
+</script>
+</body>
+</html>
