@@ -23,6 +23,7 @@ Si alguien cancela, conserva el acceso hasta el fin del período que ya pagó.
 | `supabase/migrations/20261023000000_suscripciones.sql` | Tablas, funciones y RLS |
 | `supabase/functions/mp-crear-suscripcion` | Crea la suscripción y devuelve el enlace de pago (requiere sesión) |
 | `supabase/functions/mp-webhook` | Recibe las notificaciones de Mercado Pago (firma verificada) |
+| `supabase/migrations/20261023010000_administracion.sql` | Rol administrador, sus permisos y los textos editables del portal |
 | `supabase/seed.sql` | Catálogo inicial: categorías, apps y planes |
 | `marca/` | Manual de marca y logos |
 
@@ -38,6 +39,7 @@ Todo se hace en [supabase.com/dashboard](https://supabase.com/dashboard) y en el
 
 ### 2. Crear las tablas
 - **SQL Editor → New query**: pega todo `supabase/migrations/20261023000000_suscripciones.sql` y presiona **Run**.
+- En otra consulta, haz lo mismo con `supabase/migrations/20261023010000_administracion.sql` (rol administrador). Si la primera ya estaba aplicada, corre solo esta.
 - Abre otra consulta, pega `supabase/seed.sql` (ajusta antes precios y apps) y presiona **Run**.
 - Revisa en **Advisors → Security** que no aparezcan alertas de tablas sin RLS.
 
@@ -86,6 +88,24 @@ Todo se hace en [supabase.com/dashboard](https://supabase.com/dashboard) y en el
 4. Si no se activa, revisa en **Table Editor** la tabla `eventos_webhook` (columna `error`) y en **Edge Functions → mp-webhook → Logs**.
 
 Para pasar a producción, cambia `MP_ACCESS_TOKEN` por el de tu cuenta real y configura el webhook en modo productivo con su propia clave.
+
+## Administración
+
+Quien ingresa con un correo de la tabla `administradores` ve la pestaña **Administrar**. Hoy está solo `felipe.f.a@gmail.com`. Desde ahí:
+
+- **Apps, planes y categorías:** crear, editar y ocultar de la tienda. Las apps y los planes no se borran, se ocultan, porque pueden tener clientes.
+- **Cotizaciones:** ver el detalle, responder por correo y cambiar el estado.
+- **Clientes:** suscripciones de todas las cuentas, con su estado y próximo cobro. Es solo lectura; los estados los cambia el webhook de Mercado Pago.
+- **Textos:** etiqueta, título y texto del hero, y el eslogan del pie. En el título, lo que va entre `*asteriscos*` sale en violeta.
+
+Cambiar el precio de un plan **no** cambia lo que pagan las suscripciones vigentes en Mercado Pago; el panel lo advierte. El nuevo precio aplica a quienes contraten desde ese momento.
+
+Los permisos los aplica la base (RLS) con `es_admin()`, que además exige que el correo esté confirmado. Mantén activada la opción **Confirm email** en *Authentication → Providers → Email*. Para agregar o quitar administradores, en el SQL Editor:
+
+```sql
+insert into administradores (email) values ('otra.persona@empresa.cl');
+delete from administradores where email = 'otra.persona@empresa.cl';
+```
 
 ## Uso desde las apps
 

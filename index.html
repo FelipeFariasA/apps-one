@@ -178,6 +178,31 @@ input[type="email"]:focus, input[type="text"]:focus, select:focus, textarea:focu
 .a-medida p { margin: 0; color: var(--muted); max-width: 56ch; }
 .badge.medida { background: #0F1222; color: #18C8E8; }
 
+/* Administración */
+.adm-cab { display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; margin: 24px 0; }
+.tiles { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 16px; margin-top: 24px; }
+.tile { background: var(--surface); border-radius: 16px; padding: 16px 20px; }
+.tile .v { font-family: var(--f-display); font-weight: 800; font-size: 28px; line-height: 36px; font-variant-numeric: tabular-nums; }
+.tile .k { font-size: 14px; color: var(--muted); }
+.tabla td .acciones-fila { display: flex; gap: 4px; justify-content: flex-end; }
+.tabla select { height: 36px; padding: 0 8px; font-size: 14px; }
+.tabla .texto-largo { max-width: 36ch; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.check-lista { display: grid; gap: 8px; padding: 12px; border: 1px solid var(--field); border-radius: 8px; max-height: 200px; overflow: auto; }
+.check-lista label, label.check { flex-direction: row; align-items: center; gap: 10px; font-weight: 400; color: var(--ink); }
+.check-lista input, label.check input { width: 18px; height: 18px; accent-color: var(--violet); }
+.ayuda { font-size: 12px; line-height: 16px; font-weight: 400; color: var(--muted); }
+.ayuda.alerta { color: var(--warn-ink); }
+input[type="number"], input[type="url"] { height: 48px; padding: 0 14px; border: 1px solid var(--field); border-radius: 8px; background: var(--bg); font-size: 16px; }
+input[type="number"]:focus, input[type="url"]:focus { border-color: var(--violet); outline: 3px solid var(--violet-100); outline-offset: 0; }
+input:disabled { background: var(--surface); color: var(--muted); }
+.grupo { display: flex; flex-direction: column; gap: 6px; font-size: 14px; font-weight: 500; }
+.btn.peligro { background: #DC2626; color: #FFFFFF; }
+.btn.peligro:hover { background: #B91C1C; }
+.textos-form { display: grid; gap: 16px; max-width: 720px; background: var(--card); border: 1px solid var(--line); border-radius: 16px; padding: 24px; }
+.detalle { display: grid; grid-template-columns: max-content 1fr; gap: 8px 16px; margin: 0; font-size: 14px; }
+.detalle dt { color: var(--muted); }
+.detalle dd { margin: 0; white-space: pre-wrap; }
+
 /* Pie: Midnight con logo en negativo */
 footer { background: #0F1222; color: #A3A9C2; }
 footer .wrap { display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; padding-top: 32px; padding-bottom: 32px; font-size: 14px; }
@@ -232,6 +257,7 @@ footer svg { height: 32px; width: auto; display: block; }
       <nav>
         <button data-vista="tienda" aria-current="page">Catálogo</button>
         <button data-vista="mis-apps">Mis apps</button>
+        <button data-vista="admin" id="nav-admin" hidden>Admin<span class="cotizar-largo">istrar</span></button>
       </nav>
       <span class="usuario" id="usuario"></span>
       <span id="sesion"></span>
@@ -249,9 +275,9 @@ footer svg { height: 32px; width: auto; display: block; }
   </svg>
   <div class="wrap">
     <div class="hero-texto">
-      <p class="overline">Catálogo de apps</p>
-      <h1 class="display">Tu app, <em>lista</em> o a medida.</h1>
-      <p class="lead">Encuentra la app que necesitas, págala mes a mes con tarjeta de crédito o débito y empieza hoy. Sin costos ocultos.</p>
+      <p class="overline" id="txt-hero_overline">Catálogo de apps</p>
+      <h1 class="display" id="txt-hero_titulo">Tu app, <em>lista</em> o a medida.</h1>
+      <p class="lead" id="txt-hero_lead">Encuentra la app que necesitas, págala mes a mes con tarjeta de crédito o débito y empieza hoy. Sin costos ocultos.</p>
       <a class="btn destacado" href="#catalogo-seccion">Explorar catálogo</a>
     </div>
   </div>
@@ -293,6 +319,19 @@ footer svg { height: 32px; width: auto; display: block; }
       <div id="suscripciones"></div>
     </div>
   </section>
+
+  <section id="vista-admin" hidden>
+    <div class="seccion">
+      <h1>Administrar</h1>
+      <p class="sub">Catálogo, cotizaciones, clientes y textos del portal.</p>
+      <div class="tiles" id="adm-resumen"></div>
+    </div>
+    <div class="adm-cab">
+      <div class="chips" id="adm-tabs"></div>
+      <span id="adm-accion"></span>
+    </div>
+    <div id="adm-contenido"></div>
+  </section>
 </main>
 
 <footer>
@@ -303,11 +342,12 @@ footer svg { height: 32px; width: auto; display: block; }
       <rect x="2" y="35" width="27" height="27" rx="8" fill="#FFFFFF"/><rect x="35" y="35" width="27" height="27" rx="8" fill="#FFFFFF"/>
       <text x="80" y="45" font-family="'Plus Jakarta Sans', 'Segoe UI', Arial, sans-serif" font-size="38" letter-spacing="-1"><tspan font-weight="500" fill="#FFFFFF">apps</tspan><tspan font-weight="800" fill="#18C8E8"> one</tspan></text>
     </svg>
-    <span>Tu app, lista o a medida.</span>
+    <span id="txt-eslogan">Tu app, lista o a medida.</span>
   </div>
 </footer>
 
 <dialog id="dlg-app"><div class="dlg" id="dlg-app-cuerpo"></div></dialog>
+<dialog id="dlg-admin"><form class="dlg" id="form-admin" novalidate></form></dialog>
 
 <dialog id="dlg-login">
   <form class="dlg" id="form-login">
@@ -365,75 +405,115 @@ const normalizar = (s) => String(s ?? '').normalize('NFD').replace(/[̀-ͯ]/g, '
 const ESTADO = { pendiente: 'Pendiente de pago', activa: 'Activa', pausada: 'Pausada', cancelada: 'Cancelada' };
 const CHECK = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>';
 
-const estado = { usuario: null, categorias: [], apps: [], planes: [], misApps: [], suscripciones: [], filtro: 'todas', busqueda: '', vista: 'tienda' };
+const estado = {
+  usuario: null, categorias: [], apps: [], planes: [], misApps: [], suscripciones: [], filtro: 'todas', busqueda: '', vista: 'tienda',
+  admin: false, adm: { tab: 'apps', categorias: [], apps: [], planes: [], cotizaciones: [], suscripciones: [], ajustes: {} },
+};
 
 // Datos ------------------------------------------------------------------
 
 const sb = DEMO ? null : window.supabase.createClient(SB_URL, SB_KEY);
 
+// Datos de ejemplo con la misma forma que las tablas. En modo de ejemplo el usuario demo es administrador.
+const dias = (n) => new Date(Date.now() + n * 864e5).toISOString();
 const demo = {
   categorias: [
-    { id: 'gestion', nombre: 'Gestión' }, { id: 'finanzas', nombre: 'Finanzas' }, { id: 'analitica', nombre: 'Analítica' },
+    { id: 'gestion', nombre: 'Gestión', orden: 1 }, { id: 'finanzas', nombre: 'Finanzas', orden: 2 }, { id: 'analitica', nombre: 'Analítica', orden: 3 },
   ],
   apps: [
-    { id: 'vannucci', categoria_id: 'gestion', nombre: 'Portal Vannucci', descripcion: 'Producción del taller, orfebres, trabajos en revisión y costos.', url: 'https://vannucci-app.vercel.app' },
-    { id: 'inventario', categoria_id: 'gestion', nombre: 'Inventario', descripcion: 'Stock, bodegas y movimientos con alertas de quiebre.', url: '#' },
-    { id: 'cobranza', categoria_id: 'finanzas', nombre: 'Cobranza', descripcion: 'Seguimiento de facturas por cobrar y recordatorios a clientes.', url: '#' },
-    { id: 'tableros', categoria_id: 'analitica', nombre: 'Tableros', descripcion: 'Indicadores del negocio conectados a tus planillas.', url: '#' },
+    { id: 'vannucci', categoria_id: 'gestion', nombre: 'Portal Vannucci', descripcion: 'Producción del taller, orfebres, trabajos en revisión y costos.', url: 'https://vannucci-app.vercel.app', activa: true },
+    { id: 'inventario', categoria_id: 'gestion', nombre: 'Inventario', descripcion: 'Stock, bodegas y movimientos con alertas de quiebre.', url: 'https://ejemplo.cl/inventario', activa: true },
+    { id: 'cobranza', categoria_id: 'finanzas', nombre: 'Cobranza', descripcion: 'Seguimiento de facturas por cobrar y recordatorios a clientes.', url: 'https://ejemplo.cl/cobranza', activa: true },
+    { id: 'tableros', categoria_id: 'analitica', nombre: 'Tableros', descripcion: 'Indicadores del negocio conectados a tus planillas.', url: 'https://ejemplo.cl/tableros', activa: true },
   ],
   planes: [
-    { id: 1, nombre: 'Vannucci mensual', precio_clp: 19990, frecuencia_meses: 1, apps: ['vannucci'] },
-    { id: 2, nombre: 'Vannucci anual', precio_clp: 199900, frecuencia_meses: 12, apps: ['vannucci'] },
-    { id: 3, nombre: 'Inventario mensual', precio_clp: 14990, frecuencia_meses: 1, apps: ['inventario'] },
-    { id: 4, nombre: 'Cobranza mensual', precio_clp: 9990, frecuencia_meses: 1, apps: ['cobranza'] },
-    { id: 5, nombre: 'Tableros mensual', precio_clp: 12990, frecuencia_meses: 1, apps: ['tableros'] },
-    { id: 6, nombre: 'Pack Gestión', precio_clp: 29990, frecuencia_meses: 1, apps: ['vannucci', 'inventario'] },
+    { id: 1, nombre: 'Vannucci mensual', precio_clp: 19990, frecuencia_meses: 1, dias_gracia: 5, activo: true, apps: ['vannucci'] },
+    { id: 2, nombre: 'Vannucci anual', precio_clp: 199900, frecuencia_meses: 12, dias_gracia: 5, activo: true, apps: ['vannucci'] },
+    { id: 3, nombre: 'Inventario mensual', precio_clp: 14990, frecuencia_meses: 1, dias_gracia: 5, activo: true, apps: ['inventario'] },
+    { id: 4, nombre: 'Cobranza mensual', precio_clp: 9990, frecuencia_meses: 1, dias_gracia: 5, activo: true, apps: ['cobranza'] },
+    { id: 5, nombre: 'Tableros mensual', precio_clp: 12990, frecuencia_meses: 1, dias_gracia: 5, activo: true, apps: ['tableros'] },
+    { id: 6, nombre: 'Pack Gestión', precio_clp: 29990, frecuencia_meses: 1, dias_gracia: 5, activo: true, apps: ['vannucci', 'inventario'] },
   ],
   suscripciones: [
-    { id: 'd1', estado: 'activa', plan_id: 1, vigente_hasta: new Date(Date.now() + 18 * 864e5).toISOString(), proximo_cobro: new Date(Date.now() + 18 * 864e5).toISOString() },
+    { id: 'd1', cuenta_id: 'c-demo', estado: 'activa', plan_id: 1, vigente_hasta: dias(18), proximo_cobro: dias(18), creada_en: dias(-12), cuentas: { nombre: 'Cuenta demo', email_facturacion: 'demo@appsone.cl' } },
+    { id: 'd2', cuenta_id: 'c-2', estado: 'activa', plan_id: 6, vigente_hasta: dias(9), proximo_cobro: dias(9), creada_en: dias(-21), cuentas: { nombre: 'Taller Los Andes', email_facturacion: 'pagos@losandes.cl' } },
+    { id: 'd3', cuenta_id: 'c-3', estado: 'pausada', plan_id: 4, vigente_hasta: dias(-3), proximo_cobro: null, creada_en: dias(-40), cuentas: { nombre: 'Ferretería Sur', email_facturacion: 'admin@fsur.cl' } },
   ],
+  cotizaciones: [
+    { id: 2, creada_en: dias(-1), nombre: 'Ana Pérez', email: 'ana@clinica.cl', empresa: 'Clínica Dental Sonríe', necesidad: 'Una app para que los pacientes reserven horas y paguen el abono en línea.', presupuesto: '2m_5m', estado: 'nueva' },
+    { id: 1, creada_en: dias(-6), nombre: 'Jorge Soto', email: 'jorge@transportes.cl', empresa: null, necesidad: 'Seguimiento de despachos con fotos de la entrega desde el celular.', presupuesto: 'no_se', estado: 'en_revision' },
+  ],
+  ajustes: {},
 };
+const deTienda = (apps, planes) => ({ apps: apps.filter((a) => a.activa), planes: planes.filter((p) => p.activo) });
 
 async function cargarCatalogo() {
   if (DEMO) {
-    estado.categorias = demo.categorias; estado.apps = demo.apps; estado.planes = demo.planes;
+    const t = deTienda(demo.apps, demo.planes);
+    estado.categorias = [...demo.categorias].sort((a, b) => a.orden - b.orden); estado.apps = t.apps; estado.planes = t.planes;
+    aplicarTextos(demo.ajustes);
     return;
   }
-  const [c, a, p] = await Promise.all([
-    sb.from('categorias').select('id, nombre').order('orden'),
-    sb.from('aplicaciones').select('id, categoria_id, nombre, descripcion, url').order('nombre'),
-    sb.from('planes').select('id, nombre, precio_clp, frecuencia_meses, plan_aplicaciones(aplicacion_id)').order('precio_clp'),
+  // Un administrador también recibe lo oculto (por sus permisos); la tienda muestra solo lo activo.
+  const [c, a, p, t] = await Promise.all([
+    sb.from('categorias').select('id, nombre, orden').order('orden'),
+    sb.from('aplicaciones').select('id, categoria_id, nombre, descripcion, url, activa').order('nombre'),
+    sb.from('planes').select('id, nombre, precio_clp, frecuencia_meses, dias_gracia, activo, plan_aplicaciones(aplicacion_id)').order('precio_clp'),
+    sb.from('ajustes').select('clave, valor'),
   ]);
   const error = c.error || a.error || p.error;
   if (error) throw error;
+  const planes = p.data.map((x) => ({ ...x, apps: x.plan_aplicaciones.map((pa) => pa.aplicacion_id) }));
+  const tienda = deTienda(a.data, planes);
   estado.categorias = c.data;
-  estado.apps = a.data;
-  estado.planes = p.data.map((x) => ({ ...x, apps: x.plan_aplicaciones.map((pa) => pa.aplicacion_id) }));
+  estado.apps = tienda.apps;
+  estado.planes = tienda.planes;
+  if (!t.error) aplicarTextos(Object.fromEntries(t.data.map((x) => [x.clave, x.valor])));
+}
+
+// Textos editables del portal. En el título, lo que va entre *asteriscos* sale en violeta.
+const TEXTOS = {
+  hero_overline: { etiqueta: 'Etiqueta sobre el título', defecto: 'Catálogo de apps' },
+  hero_titulo: { etiqueta: 'Título principal', defecto: 'Tu app, *lista* o a medida.', ayuda: 'Encierra entre *asteriscos* la palabra que va en violeta.' },
+  hero_lead: { etiqueta: 'Texto bajo el título', defecto: 'Encuentra la app que necesitas, págala mes a mes con tarjeta de crédito o débito y empieza hoy. Sin costos ocultos.', largo: true },
+  eslogan: { etiqueta: 'Eslogan del pie de página', defecto: 'Tu app, lista o a medida.' },
+};
+function aplicarTextos(ajustes) {
+  estado.adm.ajustes = ajustes;
+  for (const [clave, def] of Object.entries(TEXTOS)) {
+    const el = $(`#txt-${clave}`);
+    const valor = ajustes[clave] ?? def.defecto;
+    if (clave === 'hero_titulo') el.innerHTML = esc(valor).replace(/\*(.+?)\*/g, '<em>$1</em>');
+    else el.textContent = valor;
+  }
 }
 
 async function cargarCuenta() {
-  if (!estado.usuario) { estado.misApps = []; estado.suscripciones = []; return; }
+  if (!estado.usuario) { estado.misApps = []; estado.suscripciones = []; estado.admin = false; return; }
   if (DEMO) {
-    estado.suscripciones = demo.suscripciones;
-    const vigentes = demo.suscripciones.filter((s) => s.vigente_hasta && new Date(s.vigente_hasta) > new Date());
+    estado.admin = true;
+    estado.suscripciones = demo.suscripciones.filter((s) => s.cuenta_id === 'c-demo');
+    const vigentes = estado.suscripciones.filter((s) => s.vigente_hasta && new Date(s.vigente_hasta) > new Date());
     estado.misApps = demo.apps.flatMap((a) => {
       const hasta = vigentes.filter((s) => planDe(s.plan_id)?.apps.includes(a.id)).map((s) => s.vigente_hasta).sort().pop();
       return hasta ? [{ aplicacion_id: a.id, nombre: a.nombre, url: a.url, vigente_hasta: hasta }] : [];
     });
     return;
   }
-  const [m, s] = await Promise.all([
-    sb.rpc('aplicaciones_habilitadas'),
-    sb.from('suscripciones').select('id, estado, plan_id, vigente_hasta, proximo_cobro').order('creada_en', { ascending: false }),
-  ]);
-  if (m.error || s.error) throw m.error || s.error;
+  // Se filtra por las cuentas propias: un administrador puede leer las suscripciones de todos.
+  const [m, c, adm] = await Promise.all([sb.rpc('aplicaciones_habilitadas'), sb.rpc('mis_cuentas'), sb.rpc('es_admin')]);
+  if (m.error || c.error) throw m.error || c.error;
+  const s = await sb.from('suscripciones').select('id, estado, plan_id, vigente_hasta, proximo_cobro')
+    .in('cuenta_id', c.data).order('creada_en', { ascending: false });
+  if (s.error) throw s.error;
   estado.misApps = m.data;
   estado.suscripciones = s.data;
+  estado.admin = adm.data === true;
 }
 
 async function suscribir(planId) {
   if (DEMO) {
-    demo.suscripciones.push({ id: 'd' + Date.now(), estado: 'activa', plan_id: planId, vigente_hasta: new Date(Date.now() + 30 * 864e5).toISOString(), proximo_cobro: new Date(Date.now() + 30 * 864e5).toISOString() });
+    demo.suscripciones.unshift({ id: 'd' + Date.now(), cuenta_id: 'c-demo', estado: 'activa', plan_id: planId, vigente_hasta: dias(30), proximo_cobro: dias(30), creada_en: dias(0), cuentas: { nombre: 'Cuenta demo', email_facturacion: 'demo@appsone.cl' } });
     $('#dlg-app').close();
     aviso('ok', `${CHECK} ¡Listo! Ya puedes usar tu app. (Modo de ejemplo: no se pasó por Mercado Pago).`);
     await refrescarCuenta();
@@ -463,6 +543,8 @@ function aviso(tipo, html) {
 function pintarSesion() {
   $('#usuario').textContent = estado.usuario?.email ?? '';
   $('#usuario').title = estado.usuario?.email ?? '';
+  $('#nav-admin').hidden = !estado.admin;
+  if (!estado.admin && estado.vista === 'admin') irA('tienda');
   $('#sesion').innerHTML = estado.usuario
     ? '<button class="btn terciario chico" id="salir">Salir</button>'
     : '<button class="btn terciario chico" id="entrar">Ingresar</button>';
@@ -587,6 +669,345 @@ function leerCotizacion(form) {
   return datos;
 }
 
+// Administración ------------------------------------------------------------
+// Solo se muestra a quienes están en la tabla administradores; los permisos reales los aplica la base (RLS).
+
+const ICONO_ERROR = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg>';
+const PRESUPUESTO = { hasta_2m: 'Hasta $2 MM', '2m_5m': '$2 a $5 MM', '5m_15m': '$5 a $15 MM', mas_15m: 'Más de $15 MM', no_se: 'No lo sabe' };
+const EST_COT = { nueva: 'Nueva', en_revision: 'En revisión', cotizada: 'Cotizada', descartada: 'Descartada' };
+const FRECUENCIAS = [{ valor: 1, texto: 'Mensual' }, { valor: 3, texto: 'Trimestral' }, { valor: 6, texto: 'Semestral' }, { valor: 12, texto: 'Anual' }];
+const ADM_TABS = [['apps', 'Apps'], ['planes', 'Planes'], ['categorias', 'Categorías'], ['cotizaciones', 'Cotizaciones'], ['clientes', 'Clientes'], ['textos', 'Textos']];
+const plural = (n, uno, varios) => (n === 1 ? uno : varios);
+const slug = (s) => normalizar(s).replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '').slice(0, 40);
+const vigente = (s) => s.vigente_hasta && new Date(s.vigente_hasta) > new Date();
+const activasDe = (planId) => estado.adm.suscripciones.filter((s) => s.plan_id === planId && vigente(s) && s.estado !== 'cancelada').length;
+
+async function cargarAdmin() {
+  const a = estado.adm;
+  if (DEMO) {
+    a.categorias = [...demo.categorias].sort((x, y) => x.orden - y.orden); a.apps = demo.apps; a.planes = demo.planes;
+    a.cotizaciones = demo.cotizaciones; a.suscripciones = demo.suscripciones;
+    return;
+  }
+  const [c, ap, p, q, s] = await Promise.all([
+    sb.from('categorias').select('id, nombre, orden').order('orden'),
+    sb.from('aplicaciones').select('id, categoria_id, nombre, descripcion, url, activa').order('nombre'),
+    sb.from('planes').select('id, nombre, precio_clp, frecuencia_meses, dias_gracia, activo, plan_aplicaciones(aplicacion_id)').order('nombre'),
+    sb.from('cotizaciones').select('id, creada_en, nombre, email, empresa, necesidad, presupuesto, estado').order('creada_en', { ascending: false }),
+    sb.from('suscripciones').select('id, cuenta_id, estado, plan_id, vigente_hasta, proximo_cobro, creada_en, cuentas(nombre, email_facturacion)').order('creada_en', { ascending: false }),
+  ]);
+  const error = [c, ap, p, q, s].find((r) => r.error)?.error;
+  if (error) throw new Error(mensajeError(error));
+  a.categorias = c.data; a.apps = ap.data; a.cotizaciones = q.data; a.suscripciones = s.data;
+  a.planes = p.data.map((x) => ({ ...x, apps: x.plan_aplicaciones.map((pa) => pa.aplicacion_id) }));
+}
+
+function mensajeError(error) {
+  if (error.code === '23505') return 'Ya existe uno con ese identificador. Usa otro.';
+  if (error.code === '23503') return 'No se puede borrar porque está en uso.';
+  if (error.code === '42501') return 'No tienes permisos de administrador para hacer esto.';
+  if (error.code === '23514') return 'Algún valor no es válido (por ejemplo, un texto demasiado largo o un precio en cero).';
+  return 'No pudimos guardar los cambios: ' + (error.message ?? 'error desconocido');
+}
+
+const demoTabla = () => ({ categorias: demo.categorias, aplicaciones: demo.apps, planes: demo.planes });
+
+// Crea o actualiza una fila. La clave nunca se envía en un update (los id de planes los genera la base).
+async function guardar(tabla, fila, { nuevo, clave = 'id' }) {
+  if (DEMO) {
+    const lista = demoTabla()[tabla];
+    if (!nuevo) return Object.assign(lista.find((x) => x[clave] === fila[clave]), fila);
+    if (tabla === 'planes') fila.id = Math.max(0, ...lista.map((x) => x.id)) + 1;
+    else if (lista.some((x) => x[clave] === fila[clave])) throw new Error('Ya existe uno con ese identificador. Usa otro.');
+    lista.push(fila);
+    return fila;
+  }
+  const { apps, [clave]: valorClave, ...resto } = fila;
+  const datos = nuevo && tabla !== 'planes' ? { [clave]: valorClave, ...resto } : resto;
+  const q = nuevo ? sb.from(tabla).insert(datos) : sb.from(tabla).update(datos).eq(clave, valorClave);
+  const { data, error } = await q.select().single();
+  if (error) throw new Error(mensajeError(error));
+  return data;
+}
+
+async function guardarAppsDelPlan(planId, antes, despues) {
+  if (DEMO) { demo.planes.find((p) => p.id === planId).apps = despues; return; }
+  const quitar = antes.filter((x) => !despues.includes(x));
+  const agregar = despues.filter((x) => !antes.includes(x));
+  if (quitar.length) {
+    const { error } = await sb.from('plan_aplicaciones').delete().eq('plan_id', planId).in('aplicacion_id', quitar);
+    if (error) throw new Error(mensajeError(error));
+  }
+  if (agregar.length) {
+    const { error } = await sb.from('plan_aplicaciones').insert(agregar.map((aplicacion_id) => ({ plan_id: planId, aplicacion_id })));
+    if (error) throw new Error(mensajeError(error));
+  }
+}
+
+// Formulario genérico en un diálogo. Cada campo: { nombre, etiqueta, tipo, valor, requerido, opciones, ayuda, alerta, max, validar, deshabilitado }.
+function campoHtml(c) {
+  const err = `<span class="campo-error" id="adm-err-${c.nombre}"></span>`;
+  const ayuda = c.ayuda ? `<span class="ayuda${c.alerta ? ' alerta' : ''}">${esc(c.ayuda)}</span>` : '';
+  const opcional = c.requerido || c.tipo === 'check' ? '' : ' <span class="opcional">(opcional)</span>';
+  const attrs = `name="${c.nombre}"${c.deshabilitado ? ' disabled' : ''}${c.max ? ` maxlength="${c.max}"` : ''}`;
+  if (c.tipo === 'check') return `<label class="check"><input type="checkbox" ${attrs}${c.valor ? ' checked' : ''}> ${esc(c.etiqueta)}</label>`;
+  if (c.tipo === 'checks') return `<div class="grupo"><span>${esc(c.etiqueta)}</span><div class="check-lista">${c.opciones.map((o) =>
+    `<label><input type="checkbox" name="${c.nombre}" value="${esc(o.valor)}"${(c.valor ?? []).includes(o.valor) ? ' checked' : ''}> ${esc(o.texto)}</label>`).join('')}</div>${ayuda}${err}</div>`;
+  const titulo = `<span>${esc(c.etiqueta)}${opcional}</span>`;
+  if (c.tipo === 'textarea') return `<label>${titulo}<textarea ${attrs}>${esc(c.valor)}</textarea>${ayuda}${err}</label>`;
+  if (c.tipo === 'select') return `<label>${titulo}<select ${attrs}>${c.opciones.map((o) =>
+    `<option value="${esc(o.valor)}"${String(o.valor) === String(c.valor ?? '') ? ' selected' : ''}>${esc(o.texto)}</option>`).join('')}</select>${ayuda}${err}</label>`;
+  const extra = c.tipo === 'number' ? ` min="${c.min ?? 0}" step="1"${c.maximo != null ? ` max="${c.maximo}"` : ''}` : '';
+  return `<label>${titulo}<input type="${c.tipo}" ${attrs}${extra} value="${esc(c.valor)}">${ayuda}${err}</label>`;
+}
+
+function formulario(titulo, campos, alGuardar, { boton = 'Guardar' } = {}) {
+  const f = $('#form-admin');
+  f.innerHTML = `<div class="dlg-cab"><h3>${esc(titulo)}</h3><button type="button" class="cerrar" aria-label="Cerrar" data-cerrar>×</button></div>`
+    + campos.map(campoHtml).join('') + `<p class="error" id="adm-error" hidden></p><button class="btn primario" id="adm-guardar">${esc(boton)}</button>`;
+  const campo = (n) => f.elements.namedItem(n);
+  f.onsubmit = async (ev) => {
+    ev.preventDefault();
+    const valores = {};
+    let primero = null;
+    for (const c of campos) {
+      let v;
+      if (c.tipo === 'checks') v = [...f.querySelectorAll(`input[name="${c.nombre}"]:checked`)].map((i) => i.value);
+      else if (c.tipo === 'check') v = campo(c.nombre).checked;
+      else if (c.tipo === 'number') v = campo(c.nombre).value === '' ? null : Number(campo(c.nombre).value);
+      else v = campo(c.nombre).value.trim();
+      valores[c.nombre] = v;
+      const vacio = v === '' || v === null || (Array.isArray(v) && !v.length);
+      const msg = (c.requerido && vacio ? 'Este campo es obligatorio.' : '') || (c.validar && !vacio ? c.validar(v) : '') || '';
+      const err = f.querySelector(`#adm-err-${c.nombre}`);
+      if (err) err.innerHTML = msg ? ICONO_ERROR + esc(msg) : '';
+      if (msg && !primero) primero = c.nombre;
+    }
+    if (primero) { f.querySelector(`[name="${primero}"]`)?.focus(); return; }
+    const btn = $('#adm-guardar');
+    btn.disabled = true; btn.textContent = 'Guardando…';
+    try {
+      const aviso_ = await alGuardar(valores);
+      $('#dlg-admin').close();
+      await refrescarAdmin();
+      aviso(aviso_ ? '' : 'ok', aviso_ ?? `${CHECK} Cambios guardados.`);
+    } catch (e) {
+      const err = $('#adm-error'); err.textContent = e.message; err.hidden = false;
+      btn.disabled = false; btn.textContent = boton;
+    }
+  };
+  $('#dlg-admin').showModal();
+  return f;
+}
+
+function confirmar(titulo, texto, boton, accion) {
+  const f = $('#form-admin');
+  f.innerHTML = `<div class="dlg-cab"><h3>${esc(titulo)}</h3><button type="button" class="cerrar" aria-label="Cerrar" data-cerrar>×</button></div>
+    <p class="meta" style="margin:0">${esc(texto)}</p><p class="error" id="adm-error" hidden></p>
+    <div style="display:flex;gap:8px;justify-content:flex-end"><button type="button" class="btn terciario" data-cerrar>Cancelar</button><button class="btn peligro">${esc(boton)}</button></div>`;
+  f.onsubmit = async (ev) => {
+    ev.preventDefault();
+    try { await accion(); $('#dlg-admin').close(); await refrescarAdmin(); aviso('ok', `${CHECK} Listo.`); }
+    catch (e) { const err = $('#adm-error'); err.textContent = e.message; err.hidden = false; }
+  };
+  $('#dlg-admin').showModal();
+}
+
+function editarApp(id) {
+  const a = estado.adm.apps.find((x) => x.id === id);
+  const nuevo = !a;
+  const f = formulario(nuevo ? 'Nueva app' : `Editar ${a.nombre}`, [
+    { nombre: 'nombre', etiqueta: 'Nombre', tipo: 'text', valor: a?.nombre, requerido: true, max: 30 },
+    { nombre: 'id', etiqueta: 'Identificador', tipo: 'text', valor: a?.id, requerido: true, deshabilitado: !nuevo, max: 40,
+      ayuda: nuevo ? 'Se usa en la app para validar el acceso. No se puede cambiar después.' : 'No se puede cambiar: la app lo usa para validar el acceso.',
+      validar: (v) => nuevo && !/^[a-z0-9-]{2,40}$/.test(v) ? 'Usa solo minúsculas, números y guiones.' : '' },
+    { nombre: 'categoria_id', etiqueta: 'Categoría', tipo: 'select', valor: a?.categoria_id ?? '',
+      opciones: [{ valor: '', texto: 'Sin categoría' }, ...estado.adm.categorias.map((c) => ({ valor: c.id, texto: c.nombre }))] },
+    { nombre: 'descripcion', etiqueta: 'Descripción corta', tipo: 'textarea', valor: a?.descripcion, max: 80, ayuda: 'Hasta 80 caracteres, con un beneficio claro.' },
+    { nombre: 'url', etiqueta: 'Dirección de la app', tipo: 'url', valor: a?.url, max: 300,
+      validar: (v) => !/^https?:\/\/\S+$/.test(v) ? 'Debe ser una dirección completa, por ejemplo https://mi-app.cl' : '' },
+    { nombre: 'activa', etiqueta: 'Visible en la tienda', tipo: 'check', valor: a ? a.activa : true },
+  ], (v) => guardar('aplicaciones', {
+    id: nuevo ? v.id : a.id, nombre: v.nombre, categoria_id: v.categoria_id || null,
+    descripcion: v.descripcion || null, url: v.url || null, activa: v.activa,
+  }, { nuevo }));
+  if (nuevo) {
+    // El identificador se sugiere a partir del nombre hasta que se edita a mano.
+    let tocado = false;
+    f.elements.namedItem('id').addEventListener('input', () => { tocado = true; });
+    f.elements.namedItem('nombre').addEventListener('input', (e) => { if (!tocado) f.elements.namedItem('id').value = slug(e.target.value); });
+  }
+}
+
+function editarPlan(id) {
+  const p = estado.adm.planes.find((x) => x.id === id);
+  const nuevo = !p;
+  const activas = p ? activasDe(p.id) : 0;
+  formulario(nuevo ? 'Nuevo plan' : `Editar ${p.nombre}`, [
+    { nombre: 'nombre', etiqueta: 'Nombre del plan', tipo: 'text', valor: p?.nombre, requerido: true, max: 60 },
+    { nombre: 'precio_clp', etiqueta: 'Precio en pesos, IVA incluido', tipo: 'number', valor: p?.precio_clp, requerido: true, min: 1,
+      ayuda: activas ? `${plural(activas, 'Hay 1 suscripción vigente', `Hay ${activas} suscripciones vigentes`)} con este plan: si cambias el precio, seguirán pagando el anterior en Mercado Pago. El nuevo aplica a quienes contraten desde ahora.` : 'Sin decimales; por ejemplo 19990.',
+      alerta: activas > 0, validar: (v) => !Number.isInteger(v) || v < 1 ? 'Escribe un monto entero mayor que cero.' : '' },
+    { nombre: 'frecuencia_meses', etiqueta: 'Frecuencia de cobro', tipo: 'select', valor: p?.frecuencia_meses ?? 1, requerido: true, opciones: FRECUENCIAS },
+    { nombre: 'dias_gracia', etiqueta: 'Días de gracia si no paga', tipo: 'number', valor: p?.dias_gracia ?? 5, requerido: true, maximo: 30,
+      ayuda: 'Días que mantiene el acceso después del vencimiento mientras Mercado Pago reintenta el cobro.',
+      validar: (v) => !Number.isInteger(v) || v < 0 || v > 30 ? 'Usa un número entre 0 y 30.' : '' },
+    { nombre: 'apps', etiqueta: 'Apps incluidas', tipo: 'checks', valor: p?.apps ?? [], requerido: true,
+      opciones: estado.adm.apps.map((a) => ({ valor: a.id, texto: a.activa ? a.nombre : `${a.nombre} (oculta)` })) },
+    { nombre: 'activo', etiqueta: 'A la venta en la tienda', tipo: 'check', valor: p ? p.activo : true },
+  ], async (v) => {
+    const precioAnterior = p?.precio_clp;
+    const appsAntes = nuevo ? [] : [...p.apps];
+    const fila = { nombre: v.nombre, precio_clp: v.precio_clp, frecuencia_meses: Number(v.frecuencia_meses), dias_gracia: v.dias_gracia, activo: v.activo };
+    if (!nuevo) fila.id = p.id;
+    if (DEMO) fila.apps = appsAntes;
+    const guardado = await guardar('planes', fila, { nuevo });
+    await guardarAppsDelPlan(guardado.id, appsAntes, v.apps);
+    if (!nuevo && activas && v.precio_clp !== precioAnterior) {
+      return `Precio actualizado a ${clp(v.precio_clp)}. ${plural(activas, 'La suscripción vigente sigue', `Las ${activas} suscripciones vigentes siguen`)} pagando ${clp(precioAnterior)} en Mercado Pago.`;
+    }
+    return null;
+  });
+}
+
+function editarCategoria(id) {
+  const c = estado.adm.categorias.find((x) => x.id === id);
+  const nuevo = !c;
+  const f = formulario(nuevo ? 'Nueva categoría' : `Editar ${c.nombre}`, [
+    { nombre: 'nombre', etiqueta: 'Nombre', tipo: 'text', valor: c?.nombre, requerido: true, max: 40 },
+    { nombre: 'id', etiqueta: 'Identificador', tipo: 'text', valor: c?.id, requerido: true, deshabilitado: !nuevo, max: 40,
+      validar: (v) => nuevo && !/^[a-z0-9-]{2,40}$/.test(v) ? 'Usa solo minúsculas, números y guiones.' : '' },
+    { nombre: 'orden', etiqueta: 'Orden en los filtros', tipo: 'number', valor: c?.orden ?? estado.adm.categorias.length + 1, requerido: true,
+      ayuda: 'Las categorías se muestran de menor a mayor.' },
+  ], (v) => guardar('categorias', { id: nuevo ? v.id : c.id, nombre: v.nombre, orden: v.orden }, { nuevo }));
+  if (nuevo) f.elements.namedItem('nombre').addEventListener('input', (e) => { f.elements.namedItem('id').value = slug(e.target.value); });
+}
+
+function borrarCategoria(id) {
+  const c = estado.adm.categorias.find((x) => x.id === id);
+  const usadas = estado.adm.apps.filter((a) => a.categoria_id === id).length;
+  confirmar(`Eliminar ${c.nombre}`, usadas ? `${plural(usadas, 'La app de esta categoría quedará', `Las ${usadas} apps de esta categoría quedarán`)} sin categoría. No se borra ninguna app.` : 'Esta categoría no tiene apps.', 'Eliminar categoría', async () => {
+    if (DEMO) {
+      demo.categorias.splice(demo.categorias.indexOf(c), 1);
+      demo.apps.forEach((a) => { if (a.categoria_id === id) a.categoria_id = null; });
+      return;
+    }
+    const { error } = await sb.from('categorias').delete().eq('id', id);
+    if (error) throw new Error(mensajeError(error));
+  });
+}
+
+async function cambiarEstadoCotizacion(id, nuevo) {
+  if (DEMO) { demo.cotizaciones.find((q) => q.id === id).estado = nuevo; }
+  else {
+    const { error } = await sb.from('cotizaciones').update({ estado: nuevo }).eq('id', id);
+    if (error) { aviso('bad', esc(mensajeError(error))); return; }
+  }
+  await refrescarAdmin();
+}
+
+function verCotizacion(id) {
+  const q = estado.adm.cotizaciones.find((x) => x.id === id);
+  const f = $('#form-admin');
+  f.innerHTML = `<div class="dlg-cab"><div><span class="badge medida">A medida</span><h3 style="margin-top:8px">${esc(q.nombre)}</h3></div>
+      <button type="button" class="cerrar" aria-label="Cerrar" data-cerrar>×</button></div>
+    <dl class="detalle">
+      <dt>Recibida</dt><dd>${fecha(q.creada_en)}</dd>
+      <dt>Correo</dt><dd>${esc(q.email)}</dd>
+      <dt>Empresa</dt><dd>${esc(q.empresa ?? '—')}</dd>
+      <dt>Presupuesto</dt><dd>${esc(PRESUPUESTO[q.presupuesto] ?? '—')}</dd>
+      <dt>Necesidad</dt><dd>${esc(q.necesidad)}</dd>
+    </dl>
+    <a class="btn primario" href="mailto:${encodeURIComponent(q.email)}?subject=${encodeURIComponent('Tu cotización en Apps One')}">Responder por correo</a>`;
+  f.onsubmit = (ev) => ev.preventDefault();
+  $('#dlg-admin').showModal();
+}
+
+async function guardarTextos(form) {
+  const filas = Object.keys(TEXTOS).map((clave) => ({ clave, valor: form.elements.namedItem(clave).value.trim() || TEXTOS[clave].defecto }));
+  if (DEMO) filas.forEach((f) => { demo.ajustes[f.clave] = f.valor; });
+  else {
+    const { error } = await sb.from('ajustes').upsert(filas);
+    if (error) { aviso('bad', esc(mensajeError(error))); return; }
+  }
+  aplicarTextos(Object.fromEntries(filas.map((f) => [f.clave, f.valor])));
+  aviso('ok', `${CHECK} Textos guardados. Ya se ven en el catálogo.`);
+}
+
+function pintarAdmin() {
+  const a = estado.adm;
+  const vigentes = a.suscripciones.filter((s) => vigente(s) && s.estado !== 'cancelada');
+  const mrr = vigentes.reduce((t, s) => { const p = a.planes.find((x) => x.id === s.plan_id); return t + (p ? p.precio_clp / p.frecuencia_meses : 0); }, 0);
+  $('#adm-resumen').innerHTML = [
+    [vigentes.length, 'Suscripciones vigentes'],
+    [clp(Math.round(mrr)), 'Ingreso mensual estimado'],
+    [a.cotizaciones.filter((q) => q.estado === 'nueva').length, 'Cotizaciones nuevas'],
+    [a.apps.filter((x) => x.activa).length, 'Apps en la tienda'],
+  ].map(([v, k]) => `<div class="tile"><div class="v">${v}</div><div class="k">${k}</div></div>`).join('');
+
+  $('#adm-tabs').innerHTML = ADM_TABS.map(([id, nombre]) => `<button data-adm-tab="${id}" aria-pressed="${a.tab === id}">${nombre}</button>`).join('');
+  const nuevos = { apps: 'Nueva app', planes: 'Nuevo plan', categorias: 'Nueva categoría' };
+  $('#adm-accion').innerHTML = nuevos[a.tab] ? `<button class="btn primario chico" data-adm-nuevo="${a.tab}">${nuevos[a.tab]}</button>` : '';
+
+  const tabla = (cab, filas, vacio) => filas.length
+    ? `<div class="tabla-scroll"><table class="tabla"><thead><tr>${cab.map((c) => `<th${c.startsWith('>') ? ' class="n"' : ''}>${c.replace('>', '')}</th>`).join('')}</tr></thead><tbody>${filas.join('')}</tbody></table></div>`
+    : `<div class="vacio">${vacio}</div>`;
+  const editar = (tipo, id) => `<button class="btn terciario chico" data-adm-editar="${tipo}" data-id="${esc(id)}">Editar</button>`;
+  const visible = (si) => `<span class="badge ${si ? 'activa' : 'cancelada'}">${si ? CHECK + ' Visible' : 'Oculta'}</span>`;
+
+  let html = '';
+  if (a.tab === 'apps') html = tabla(['App', 'Categoría', 'Estado', 'Planes', ''], a.apps.map((x) => `<tr>
+      <td><b>${esc(x.nombre)}</b><br><span class="meta">${esc(x.id)}</span></td>
+      <td>${esc(a.categorias.find((c) => c.id === x.categoria_id)?.nombre ?? 'Sin categoría')}</td>
+      <td>${visible(x.activa)}</td>
+      <td>${a.planes.filter((p) => p.apps.includes(x.id)).length}</td>
+      <td><div class="acciones-fila">${editar('app', x.id)}</div></td></tr>`), 'Aún no hay apps. Crea la primera con "Nueva app".');
+  else if (a.tab === 'planes') html = tabla(['Plan', '>Precio', 'Apps incluidas', '>Vigentes', 'Estado', ''], a.planes.map((p) => `<tr>
+      <td><b>${esc(p.nombre)}</b><br><span class="meta">Gracia: ${p.dias_gracia} días</span></td>
+      <td class="n">${clp(p.precio_clp)}${periodo(p.frecuencia_meses)}</td>
+      <td>${esc(p.apps.map((id) => a.apps.find((x) => x.id === id)?.nombre ?? id).join(', ') || '—')}</td>
+      <td class="n">${activasDe(p.id)}</td>
+      <td><span class="badge ${p.activo ? 'activa' : 'cancelada'}">${p.activo ? CHECK + ' A la venta' : 'Oculto'}</span></td>
+      <td><div class="acciones-fila">${editar('plan', p.id)}</div></td></tr>`), 'Aún no hay planes. Crea uno con "Nuevo plan".');
+  else if (a.tab === 'categorias') html = tabla(['Categoría', '>Orden', '>Apps', ''], a.categorias.map((c) => `<tr>
+      <td><b>${esc(c.nombre)}</b><br><span class="meta">${esc(c.id)}</span></td>
+      <td class="n">${c.orden}</td>
+      <td class="n">${a.apps.filter((x) => x.categoria_id === c.id).length}</td>
+      <td><div class="acciones-fila">${editar('categoria', c.id)}<button class="btn terciario chico" data-adm-borrar="${esc(c.id)}">Eliminar</button></div></td></tr>`), 'Aún no hay categorías.');
+  else if (a.tab === 'cotizaciones') html = tabla(['Recibida', 'Contacto', 'Necesidad', 'Presupuesto', 'Estado', ''], a.cotizaciones.map((q) => `<tr>
+      <td>${fecha(q.creada_en)}</td>
+      <td><b>${esc(q.nombre)}</b><br><span class="meta">${esc(q.email)}${q.empresa ? ' · ' + esc(q.empresa) : ''}</span></td>
+      <td><div class="texto-largo" title="${esc(q.necesidad)}">${esc(q.necesidad)}</div></td>
+      <td>${esc(PRESUPUESTO[q.presupuesto] ?? '—')}</td>
+      <td><select data-cotizacion="${q.id}" aria-label="Estado de la cotización">${Object.entries(EST_COT).map(([k, t]) => `<option value="${k}"${k === q.estado ? ' selected' : ''}>${t}</option>`).join('')}</select></td>
+      <td><div class="acciones-fila"><button class="btn terciario chico" data-adm-ver="${q.id}">Ver</button></div></td></tr>`), 'Todavía no llegan cotizaciones.');
+  else if (a.tab === 'clientes') html = tabla(['Cliente', 'Plan', 'Estado', 'Vigente hasta', 'Próximo cobro', 'Desde'], a.suscripciones.map((s) => {
+      const p = a.planes.find((x) => x.id === s.plan_id);
+      const vencida = s.estado !== 'pendiente' && s.vigente_hasta && !vigente(s);
+      const clase = vencida ? 'vencida' : s.estado;
+      return `<tr>
+      <td><b>${esc(s.cuentas?.nombre ?? '—')}</b><br><span class="meta">${esc(s.cuentas?.email_facturacion ?? '')}</span></td>
+      <td>${esc(p?.nombre ?? '—')}</td>
+      <td><span class="badge ${clase}">${clase === 'activa' ? CHECK + ' ' : ''}${vencida ? 'Vencida' : ESTADO[s.estado]}</span></td>
+      <td>${fecha(s.vigente_hasta)}</td>
+      <td>${s.estado === 'activa' ? fecha(s.proximo_cobro) : '—'}</td>
+      <td>${fecha(s.creada_en)}</td></tr>`;
+    }), 'Todavía no hay clientes con suscripción.');
+  else if (a.tab === 'textos') html = `<form class="textos-form" id="form-textos" novalidate>
+      ${Object.entries(TEXTOS).map(([clave, t]) => campoHtml({ nombre: clave, etiqueta: t.etiqueta, tipo: t.largo ? 'textarea' : 'text', valor: a.ajustes[clave] ?? t.defecto, requerido: true, max: 500, ayuda: t.ayuda })).join('')}
+      <div><button class="btn primario">Guardar textos</button></div></form>`;
+  $('#adm-contenido').innerHTML = html;
+}
+
+async function refrescarAdmin() {
+  try {
+    await cargarAdmin();
+    await cargarCatalogo();
+  } catch (e) { aviso('bad', esc(e.message)); console.error(e); }
+  pintarTienda();
+  if (estado.vista === 'admin') pintarAdmin();
+}
+
 function irA(vista) {
   estado.vista = vista;
   document.querySelectorAll('nav button').forEach((b) =>
@@ -594,7 +1015,9 @@ function irA(vista) {
   $('#hero').hidden = vista !== 'tienda';
   $('#vista-tienda').hidden = vista !== 'tienda';
   $('#vista-mis-apps').hidden = vista !== 'mis-apps';
+  $('#vista-admin').hidden = vista !== 'admin';
   window.scrollTo({ top: 0 });
+  if (vista === 'admin') refrescarAdmin();
 }
 
 function pintar() { pintarSesion(); pintarTienda(); pintarMisApps(); }
@@ -641,6 +1064,13 @@ document.addEventListener('click', async (ev) => {
   }
   else if (t.dataset.app) abrirApp(t.dataset.app);
   else if ('cotizar' in t.dataset) abrirCotizar();
+  else if (t.dataset.admTab) { estado.adm.tab = t.dataset.admTab; pintarAdmin(); }
+  else if (t.dataset.admNuevo) ({ apps: editarApp, planes: editarPlan, categorias: editarCategoria })[t.dataset.admNuevo]();
+  else if (t.dataset.admEditar === 'app') editarApp(t.dataset.id);
+  else if (t.dataset.admEditar === 'plan') editarPlan(Number(t.dataset.id));
+  else if (t.dataset.admEditar === 'categoria') editarCategoria(t.dataset.id);
+  else if (t.dataset.admBorrar) borrarCategoria(t.dataset.admBorrar);
+  else if (t.dataset.admVer) verCotizacion(Number(t.dataset.admVer));
   else if ('cerrar' in t.dataset) t.closest('dialog').close();
   else if (t.id === 'entrar' || 'entrar' in t.dataset) {
     $('#dlg-app').close();
@@ -672,6 +1102,16 @@ $('#form-login').addEventListener('submit', async (ev) => {
   if (error) { err.textContent = 'No pudimos enviar el enlace. Revisa tu correo e inténtalo de nuevo.'; err.hidden = false; console.error(error); return; }
   $('#dlg-login').close();
   aviso('ok', `${CHECK} Te enviamos un enlace a tu correo. Ábrelo para entrar.`);
+});
+
+$('#adm-contenido').addEventListener('change', (ev) => {
+  const sel = ev.target.closest('select[data-cotizacion]');
+  if (sel) cambiarEstadoCotizacion(Number(sel.dataset.cotizacion), sel.value);
+});
+$('#adm-contenido').addEventListener('submit', (ev) => {
+  if (ev.target.id !== 'form-textos') return;
+  ev.preventDefault();
+  guardarTextos(ev.target);
 });
 
 $('#form-cotizar').addEventListener('submit', async (ev) => {
