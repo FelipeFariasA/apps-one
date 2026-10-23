@@ -74,6 +74,7 @@ Todo se hace en [supabase.com/dashboard](https://supabase.com/dashboard) y en el
 | `MP_ACCESS_TOKEN` | Access Token del vendedor de prueba |
 | `MP_WEBHOOK_SECRET` | Clave secreta del paso 7 |
 | `PORTAL_URL` | URL del paso 3, sin `/` al final |
+| `MP_PAYER_EMAIL_PRUEBA` | Solo en pruebas: correo del comprador de prueba. Bórralo al pasar a producción |
 
 `SUPABASE_URL`, `SUPABASE_ANON_KEY` y `SUPABASE_SERVICE_ROLE_KEY` ya vienen incluidos.
 
@@ -82,7 +83,7 @@ Todo se hace en [supabase.com/dashboard](https://supabase.com/dashboard) y en el
 - Reemplaza `SB_URL` y `SB_KEY` al inicio del `<script>` de `index.html` y vuelve a publicar. La clave publicable puede ir en la página; la *secret* o *service_role* nunca.
 
 ### 10. Prueba completa
-1. Ingresa al portal con el **correo del comprador de prueba**: Mercado Pago exige que el pagador sea esa cuenta.
+1. Ingresa al portal con tu correo. Gracias a `MP_PAYER_EMAIL_PRUEBA`, Mercado Pago recibe el del comprador de prueba, que es el único que acepta como pagador.
 2. Elige un plan → **Suscribirme** → paga con una [tarjeta de prueba](https://www.mercadopago.cl/developers/es/docs/subscriptions/additional-content/your-integrations/test/cards), con titular `APRO`.
 3. Al volver, el portal muestra "Confirmando tu pago…" y luego la app en **Mis apps**.
 4. Si no se activa, revisa en **Table Editor** la tabla `eventos_webhook` (columna `error`) y en **Edge Functions → mp-webhook → Logs**.

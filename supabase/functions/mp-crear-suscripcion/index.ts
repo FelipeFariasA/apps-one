@@ -28,6 +28,9 @@ async function mp<T>(ruta: string, init: RequestInit = {}): Promise<T> {
 }
 
 const PORTAL = Deno.env.get('PORTAL_URL') ?? 'http://localhost:3000';
+// Solo para pruebas: Mercado Pago exige que el pagador sea su comprador de prueba, cuyo correo no recibe
+// el enlace de ingreso. Con este secreto se usa ese correo en vez del de la sesión. Bórralo en producción.
+const PAGADOR_PRUEBA = Deno.env.get('MP_PAYER_EMAIL_PRUEBA');
 
 Deno.serve(async (req) => {
   if (req.method === 'OPTIONS') return new Response('ok', { headers: cors });
@@ -74,7 +77,7 @@ Deno.serve(async (req) => {
       body: JSON.stringify({
         reason: plan.nombre,
         external_reference: sus.id,
-        payer_email: user.email,
+        payer_email: PAGADOR_PRUEBA || user.email,
         back_url: `${PORTAL}/?suscripcion=${sus.id}`,
         status: 'pending',
         auto_recurring: {
